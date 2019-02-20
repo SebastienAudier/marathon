@@ -1,0 +1,75 @@
+html, body {
+	margin: 0px;
+	padding: 0px;
+}
+
+h1 {
+	margin: 0px;
+    line-height: 2em;
+    background: #eee;
+    height: 70px;
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #ccc;
+    font-family: helvetica;
+    font-weight: normal;
+    text-align: center;
+}
+
+.sidebar {
+	padding: 2%;
+	width: 16%;
+	float: left;
+	min-height: 500px;
+}
+
+#container {
+	padding: 5%;
+	width: 70%;
+	float: left;
+	min-height: 500px;
+}
+
+.nav,
+.page {
+	width: 100%;
+	float: left;
+	font-family: helvetica;
+	line-height: 2em;
+	cursor: pointer;
+	color: #3B3b3b;
+}
+
+.nav span:hover {
+	color: #0088CC;
+}
+
+.nav .nav {
+	padding-left: 10%;
+	width: 90%;
+}
+
+.nav .nav .page {
+	padding-left: 20%;
+	width: 80%;
+	float: left;
+}
+
+.panel {
+	width: 88%;
+	padding: 4%;
+	float: left;
+	margin: 2%;
+	box-shadow: 0px 1px 2px #aaa;
+}
+
+.panel span {
+	float: left;
+	width: 70%;
+	font-family: helvetica;
+	font-weight: bold;
+}
+
+.panel button {
+	float: left;
+}

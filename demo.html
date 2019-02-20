@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+	<meta charset="UTF-8">
+	<title>Marathon</title>
+  
+	<script type='text/javascript' src='./js/jquery-2.1.4.min.js'></script>
+	<script type='text/javascript' src='./js/htmlCanvas.js'></script> 
+	
+	<link rel="stylesheet" href="./css/buttons.css" rel="stylesheet">
+	<link rel="stylesheet" href="./css/demo.css" rel="stylesheet">
+  
+</head>
+
+	<body>
+		
+		<script>
+			
+
+			
+			function Header() {
+			
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+					html.h1("Marathon");
+				}
+				
+				return that
+			}
+
+			function Browser() {
+			
+				var that = htmlCanvas.widget();
+				var nav;
+				
+				that.renderOn = function(html) {
+					sidebar = html.div().addClass("sidebar").asJQuery();	
+					nav = html.div().addClass("nav").asJQuery();
+					nav.appendTo(sidebar);
+					html.span("Start").addClass("page").click(function(){showStart(nav)}).asJQuery().appendTo(nav);
+					html.span("Atomic").click(function(){showAtomicMenu(nav)}).asJQuery().appendTo(nav);
+					html.div().setAttribute('id', 'container')
+				}
+				
+				function showStart() {
+				
+				}
+
+				
+				function showAtomicMenu(nav) {
+					AtomicMenu().appendTo(nav)
+				}
+								
+				return that
+			}
+	
+			function AtomicMenu() {
+			
+				var that = htmlCanvas.widget();
+				var nav;
+				
+				that.renderOn = function(html) {
+					nav = html.div().addClass("nav").asJQuery();
+					html.span("CSS").click(function(){showCssMenu(nav)}).asJQuery().appendTo(nav)
+				}
+				
+				function showCssMenu(nav) {
+					if(nav.children().length < 2) {
+						CssMenu().appendTo(nav)
+					}
+				}
+				
+				return that
+			}
+	
+			function CssMenu() {
+			
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+					html.span("Buttons").addClass("page").click(function(){showButtons()})
+				}
+				
+				function showButtons() {
+					container = $('#container');
+					container.html('');
+					Buttons().appendTo(container)
+				}
+				
+				return that
+			}
+			
+			function Buttons () {
+				
+				var that = htmlCanvas.widget();
+				var classes = ['default', 'success', 'primary', 'warning', 'danger'];
+				
+				that.renderOn = function(html) {
+					for(i in classes) {
+						c = classes[i];
+						panel = html.div().addClass('panel').asJQuery();
+						html.span('.' + c).asJQuery().appendTo(panel);
+						html.button(c).addClass(c).asJQuery().appendTo(panel);
+					}
+				}
+				
+				return that
+			}
+	
+	
+			Header().appendTo($('body'));
+			
+			Browser().appendTo($('body'));	
+	
+		</script>
+	</body>
+
+</html>
