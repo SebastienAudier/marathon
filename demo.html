@@ -33,14 +33,13 @@
 			function Browser() {
 			
 				var that = htmlCanvas.widget();
-				var nav;
 				
 				that.renderOn = function(html) {
 					sidebar = html.div().addClass("sidebar").asJQuery();	
 					nav = html.div().addClass("nav").asJQuery();
 					nav.appendTo(sidebar);
-					html.span("Start").addClass("page").click(function(){showStart(nav)}).asJQuery().appendTo(nav);
-					html.span("Atomic").click(function(){showAtomicMenu(nav)}).asJQuery().appendTo(nav);
+					html.span("Start").addClass("page").click(function(){showStart()}).asJQuery().appendTo(nav);
+					html.span("Atomic").click(function(){showAtomicMenu($(this))}).asJQuery().appendTo(nav);
 					html.div().setAttribute('id', 'container')
 				}
 				
@@ -49,8 +48,10 @@
 				}
 
 				
-				function showAtomicMenu(nav) {
-					AtomicMenu().appendTo(nav)
+				function showAtomicMenu(item) {
+					if(!$(item.next()).hasClass('nav')) {
+						AtomicMenu().appendTo(nav)
+					}
 				}
 								
 				return that
@@ -63,13 +64,11 @@
 				
 				that.renderOn = function(html) {
 					nav = html.div().addClass("nav").asJQuery();
-					html.span("CSS").click(function(){showCssMenu(nav)}).asJQuery().appendTo(nav)
+					html.span("CSS").click(function(){showCssMenu(nav)}).asJQuery().appendTo(nav);
 				}
 				
 				function showCssMenu(nav) {
-					if(nav.children().length < 2) {
-						CssMenu().appendTo(nav)
-					}
+					CssMenu().appendTo(nav)
 				}
 				
 				return that
@@ -80,13 +79,31 @@
 				var that = htmlCanvas.widget();
 				
 				that.renderOn = function(html) {
-					html.span("Buttons").addClass("page").click(function(){showButtons()})
+					html.span("Buttons").addClass("page").click(function(){showButtons()});
+					html.span("Layout").addClass("page").click(function(){showLayout()})
 				}
 				
 				function showButtons() {
 					container = $('#container');
 					container.html('');
 					Buttons().appendTo(container)
+				}
+				
+				function showLayout() {
+					container = $('#container');
+					container.html('');
+					Layout().appendTo(container)
+				}
+				
+				return that
+			}
+			
+			function Layout() {
+			
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+				
 				}
 				
 				return that
@@ -109,6 +126,16 @@
 				return that
 			}
 	
+			function Layouts () {
+				
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+					
+				}
+				
+				return that
+			}
 	
 			Header().appendTo($('body'));
 			
