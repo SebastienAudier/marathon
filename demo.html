@@ -5,10 +5,13 @@
 	<meta charset="UTF-8">
 	<title>Marathon</title>
   
-	<script type='text/javascript' src='./js/jquery-2.1.4.min.js'></script>
-	<script type='text/javascript' src='./js/htmlCanvas.js'></script> 
-	
+	<script type='text/javascript' src='./js/external/jquery-2.1.4.min.js'></script>
+	<script type='text/javascript' src='./js/external/htmlCanvas.js'></script> 
+	<script type='text/javascript' src='./js/layout.js'></script> 
+
 	<link rel="stylesheet" href="./css/buttons.css" rel="stylesheet">
+	<link rel="stylesheet" href="./css/layout.css" rel="stylesheet">
+
 	<link rel="stylesheet" href="./css/demo.css" rel="stylesheet">
   
 </head>
@@ -67,13 +70,20 @@
 				}
 				
 				function showCssMenu(nav) {
-					CssMenu().appendTo(nav)
+					if(isClosed()) {
+						CssMenu(nav).appendTo(nav);
+						nav.addClass("opened")
+					}
+				}
+
+				function isClosed() {
+					return !nav.hasClass('opened')
 				}
 				
 				return that
 			}
 	
-			function CssMenu() {
+			function CssMenu(nav) {
 			
 				var that = htmlCanvas.widget();
 				
@@ -81,33 +91,87 @@
 					html.span("Buttons").addClass("page").click(function(){showButtons()});
 					html.span("Layout").addClass("page").click(function(){showLayout()})
 				}
-				
-				function showButtons() {
+					
+				function resetContainer() {
 					container = $('#container');
 					container.html('');
-					Buttons().appendTo(container)
+				}
+
+				function showButtons() {
+					resetContainer();	
+					Buttons().appendTo(container);
 				}
 				
 				function showLayout() {
-					container = $('#container');
-					container.html('');
-					Layout().appendTo(container)
+					resetContainer();	
+					Layouts().appendTo(container);
 				}
-				
+			
 				return that
 			}
 			
-			function Layout() {
+			function Layouts() {
 			
 				var that = htmlCanvas.widget();
 				
 				that.renderOn = function(html) {
-				
+					panel = html.div().addClass('panel').asJQuery();
+					
+					html.span('Box number :').addClass("box b-4").asJQuery().appendTo(panel);
+					
+					select = html.select().addClass("box b-4").asJQuery();
+					select.change(function () {generateLayouts(event.target.value)});
+					select.appendTo(panel);
+
+					html.div().setAttribute("id", "builder");
+					var i = 1;
+					while(i<13) {
+						html.option(i.toString()).setAttribute("value", i).asJQuery().appendTo(select);
+						i++
+					}
+
+					html.span('Is airy :').addClass("box b-4").asJQuery().appendTo(panel);
+					select = html.select().addClass("box b-4").asJQuery();
+					select.change(function () {});
+					select.appendTo(panel);
+
+					html.option('no').setAttribute("value", 0).asJQuery().appendTo(select);
+					html.option('yes').setAttribute("value", 0).asJQuery().appendTo(select);
+
+					generateLayouts(1)
 				}
 				
+				function generateLayouts(number) {
+					$("#builder").html("")
+					Builder(number).appendTo($("#builder"))
+				}
+
 				return that
 			}
 			
+			function Builder(number){
+				
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+					var i = 0;
+					lite = false;
+					while(i<number) {
+						css = 'box b-' + number;
+						code = html.span(css).asJQuery();
+						if(lite) {
+							css = css + ' dark';
+						}
+						lite = !lite;
+						box = html.div().addClass(css).asJQuery();
+						code.appendTo(box);
+						i++;
+					}
+				}
+
+				return that
+			}
+
 			function Buttons () {
 				
 				var that = htmlCanvas.widget();
@@ -117,20 +181,9 @@
 					for(i in classes) {
 						c = classes[i];
 						panel = html.div().addClass('panel').asJQuery();
-						html.span('.' + c).asJQuery().appendTo(panel);
+						html.span('<button class="' + c + '"></button>').asJQuery().appendTo(panel);
 						html.button(c).addClass(c).asJQuery().appendTo(panel);
 					}
-				}
-				
-				return that
-			}
-	
-			function Layouts () {
-				
-				var that = htmlCanvas.widget();
-				
-				that.renderOn = function(html) {
-					
 				}
 				
 				return that

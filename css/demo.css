@@ -4,16 +4,17 @@ html, body {
 }
 
 h1 {
-	margin: 0px;
-    line-height: 2em;
-    background: #eee;
-    height: 70px;
+    margin: 0px;
+    line-height: 3em;
+    height: 100px;
     width: 100%;
     float: left;
     border-bottom: 1px solid #ccc;
-    font-family: helvetica;
+    font-family: sans-serif;
     font-weight: normal;
     text-align: center;
+    background: #eee url("./../img/logo.png") 95% no-repeat;
+    background-size: 32px;
 }
 
 .sidebar {
@@ -45,21 +46,59 @@ h1 {
 }
 
 .nav .nav {
-	padding-left: 10%;
-	width: 90%;
+	padding-left: 15%;
+	width: 85%;
+}
+
+.nav .page {
+	font-weight: bold;
+} 
+
+.nav .nav span {
+	font-size: 14px;
 }
 
 .nav .nav .page {
-	padding-left: 20%;
-	width: 80%;
+	padding-left: 25%;
+	width: 75%;
 	float: left;
+	font-weight: bold;
 }
 
-.panel {
+.panel,
+#builder {
 	width: 88%;
 	padding: 4%;
 	float: left;
 	margin: 2%;
+}
+
+.box {
+	text-align: center;
+	line-height: 2em;
+}
+
+#builder .box {
+	height: 200px;
+	background: #9b9b9b;
+}
+
+#builder .box span {
+	color: #fff;
+	font-weight: bold;
+	margin-top: 30px;
+	float: left;
+	font-family: helvetica;
+	font-size: 16px;
+	width: 100%;
+	text-shadow: 0px 1px 1px #000;
+}
+
+#builder .box.dark {
+	background: #3b3b3b; 
+}
+
+.panel {
 	box-shadow: 0px 1px 2px #aaa;
 }
 

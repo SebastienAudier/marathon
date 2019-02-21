@@ -1,5 +1,6 @@
-
-button {
+button,
+input,
+select {
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	border-radius:3px;
@@ -17,7 +18,19 @@ button:active {
 	top:1px;
 }
 
-.success {	-moz-box-shadow:inset 0px 1px 0px 0px #a4e271;
+input, select {
+	background: #fff;
+	border: 1px solid #0088aa;
+	height: 31px;
+}
+
+input:active,
+select:active {
+	box-shadow: 0px 0px 2px #0088dd;
+}
+
+.success {	
+	-moz-box-shadow:inset 0px 1px 0px 0px #a4e271;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #a4e271;
 	box-shadow:inset 0px 1px 0px 0px #a4e271;
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #89c403), color-stop(1, #77a809));
