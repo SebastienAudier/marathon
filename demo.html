@@ -169,19 +169,67 @@
 						lite = !lite;
 						box = html.div().addClass(css).asJQuery();
 						code.appendTo(box);
-						if(number>1 && number<5) {
+						if(number>1 && number<6) {
 							buttons = html.div().addClass("buttons").asJQuery();
 							buttons.appendTo(box);
-							button = html.button("").addClass("default").asJQuery();
+							button = html.button().addClass("default").asJQuery();
 							button.html("&#8614; &#8612;");
+							button.click(function () {decrease($(this))});
 							button.appendTo(buttons);
-							button = html.button("+").addClass("primary").asJQuery();
+							button = html.button().addClass("primary").asJQuery();
 							button.html("&#8596;");
+							button.click(function () {increase($(this))});
 							button.appendTo(buttons);
 						}
-						i++;
-						
+						i++	
 					}
+				}
+				
+				function increase(button) {
+					box = button.parent().parent();
+					css = box.attr("class");
+					level = new Number(css.split("b-")[1][0]);
+					if(css.indexOf("w-") != -1) {
+						weight = new Number(css.split("w-")[1][0]);
+					} else {
+						weight = 1;
+					}
+					boxes = box.siblings();
+					for(var i=0; i<boxes.length; i++) {
+						element = $(boxes[i]);
+						css = element.attr("class");
+						level = new Number(css.split("b-")[1][0]);
+						element.removeClass("b-" + level);
+						element.addClass("b-" + (level + 1));
+						element.find("span").html(element.attr("class").replace("dark", ""));
+					}
+					box.removeClass("w-" + weight);
+					box.addClass("w-" + (weight + 1));
+					box.find("span").html(box.attr("class").replace("dark", ""));
+				}
+				
+				function decrease(element) {
+					box = button.parent().parent();
+					css = box.attr("class");
+					level = new Number(css.split("b-")[1][0]);
+					if(css.indexOf("w-") != -1) {
+						weight = new Number(css.split("w-")[1][0]);
+					} else {
+						weight = 1;
+					}
+					boxes = box.siblings();
+					for(var i=0; i<boxes.length; i++) {
+						element = $(boxes[i]);
+						css = element.attr("class");
+						level = new Number(css.split("b-")[1][0]);
+						element.removeClass("b-" + level);
+						element.addClass("b-" + (level - 1));
+						element.find("span").html(element.attr("class").replace("dark", ""));
+					}
+					box.removeClass("w-" + weight);
+					box.addClass("w-" + (weight - 1));
+					box.find("span").html(box.attr("class").replace("dark", ""));
+					
 				}
 
 				return that

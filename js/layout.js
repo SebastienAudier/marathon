@@ -12,6 +12,11 @@ function generateCss () {
 		width = roundDown((100 /i), 2);
 		str += '.box.b-' + i + '{width: ' + width + '%}';
 		str += '.box.b-' + i + '.airy{width: ' + roundDown((width - (margin * 2)),2) + '%; margin:' + margin + '%}';
+		for(var j=1; j<(10-i); j++) {
+			str += '.box.b-' + i + '.w-' + j +'{width: ' + roundDown((100 * (j/ (j + 1))), 2) + '%}';
+			//str += '.box.b-' + i + '.airy{width: ' + roundDown((width - (margin * 2)),2) + '%; margin:' + margin + '%}';
+		}
+	
 	}
 	style = document.createElement('style');
 	style.type = 'text/css';
