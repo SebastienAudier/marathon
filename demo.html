@@ -169,7 +169,18 @@
 						lite = !lite;
 						box = html.div().addClass(css).asJQuery();
 						code.appendTo(box);
+						if(number>1 && number<5) {
+							buttons = html.div().addClass("buttons").asJQuery();
+							buttons.appendTo(box);
+							button = html.button("").addClass("default").asJQuery();
+							button.html("&#8614; &#8612;");
+							button.appendTo(buttons);
+							button = html.button("+").addClass("primary").asJQuery();
+							button.html("&#8596;");
+							button.appendTo(buttons);
+						}
 						i++;
+						
 					}
 				}
 
