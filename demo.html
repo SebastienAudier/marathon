@@ -109,6 +109,23 @@
 				return that
 			}
 			
+			function Buttons () {
+				
+				var that = htmlCanvas.widget();
+				var classes = ['default', 'success', 'primary', 'warning', 'danger'];
+				
+				that.renderOn = function(html) {
+					for(i in classes) {
+						c = classes[i];
+						panel = html.div().addClass('panel').asJQuery();
+						html.span('<button class="' + c + '"></button>').asJQuery().appendTo(panel);
+						html.button(c).addClass(c).asJQuery().appendTo(panel);
+					}
+				}
+				
+				return that
+			}
+			
 			function Layouts() {
 			
 				var that = htmlCanvas.widget();
@@ -116,13 +133,12 @@
 				var count = 1;
 
 				that.renderOn = function(html) {
-					panel = html.div().addClass('panel').asJQuery();
+					boxes = html.div().addClass('boxes b-4').asJQuery();
+					html.span('Box number :').addClass("box").asJQuery().appendTo(boxes);
 					
-					html.span('Box number :').addClass("box b-4").asJQuery().appendTo(panel);
-					
-					select = html.select().addClass("box b-4").asJQuery();
+					select = html.select().addClass("box").asJQuery();
 					select.change(function () {count = event.target.value; generateLayouts()});
-					select.appendTo(panel);
+					select.appendTo(boxes);
 
 					html.div().setAttribute("id", "builder");
 					var i = 1;
@@ -131,10 +147,10 @@
 						i++
 					}
 
-					html.span('Is airy :').addClass("box b-4").asJQuery().appendTo(panel);
-					select = html.select().addClass("box b-4").asJQuery();
+					html.span('Is airy :').addClass("box").asJQuery().appendTo(boxes);
+					select = html.select().addClass("box").asJQuery();
 					select.change(function () {isAiry = event.target.value != false; generateLayouts()});
-					select.appendTo(panel);
+					select.appendTo(boxes);
 
 					html.option('no').setAttribute("value", 0).asJQuery().appendTo(select);
 					html.option('yes').setAttribute("value", 1).asJQuery().appendTo(select);
@@ -155,100 +171,41 @@
 				var that = htmlCanvas.widget();
 				
 				that.renderOn = function(html) {
+					boxes = html.div().addClass("boxes b-" + number).asJQuery();
+					if(isAiry) {
+						boxes.addClass("airy");
+					}
 					var i = 0;
-					lite = false;
-					while(i<number) {
-						css = 'box b-' + number;
-						if(isAiry) {
-							css += ' airy';
+					while(i<number) {						
+						box = html.div().addClass("box").asJQuery();
+						if(i % 2) {
+							box.addClass("dark");
 						}
-						code = html.span(css).asJQuery();
-						if(lite) {
-							css +=' dark';
-						}
-						lite = !lite;
-						box = html.div().addClass(css).asJQuery();
-						code.appendTo(box);
-						if(number>1 && number<6) {
-							buttons = html.div().addClass("buttons").asJQuery();
-							buttons.appendTo(box);
-							button = html.button().addClass("default").asJQuery();
-							button.html("&#8614; &#8612;");
-							button.click(function () {decrease($(this))});
-							button.appendTo(buttons);
-							button = html.button().addClass("primary").asJQuery();
-							button.html("&#8596;");
-							button.click(function () {increase($(this))});
-							button.appendTo(buttons);
-						}
+						//if(number>1 && number<6) {
+						//	buttons = html.div().addClass("buttons").asJQuery();
+						//	buttons.appendTo(box);
+						//	button = html.button().addClass("default").asJQuery();
+						//	button.html("&#8614; &#8612;");
+						//	button.click(function () {decrease($(this))});
+						//	button.appendTo(buttons);
+						//	button = html.button().addClass("primary").asJQuery();
+						//	button.html("&#8596;");
+						//	button.click(function () {increase($(this))});
+						//	button.appendTo(buttons);
+						//}
+						box.appendTo(boxes);
 						i++	
 					}
 				}
 				
 				function increase(button) {
-					box = button.parent().parent();
-					css = box.attr("class");
-					level = new Number(css.split("b-")[1][0]);
-					if(css.indexOf("w-") != -1) {
-						weight = new Number(css.split("w-")[1][0]);
-					} else {
-						weight = 1;
-					}
-					boxes = box.siblings();
-					for(var i=0; i<boxes.length; i++) {
-						element = $(boxes[i]);
-						css = element.attr("class");
-						level = new Number(css.split("b-")[1][0]);
-						element.removeClass("b-" + level);
-						element.addClass("b-" + (level + 1));
-						element.find("span").html(element.attr("class").replace("dark", ""));
-					}
-					box.removeClass("w-" + weight);
-					box.addClass("w-" + (weight + 1));
-					box.find("span").html(box.attr("class").replace("dark", ""));
+					
 				}
 				
 				function decrease(element) {
-					box = button.parent().parent();
-					css = box.attr("class");
-					level = new Number(css.split("b-")[1][0]);
-					if(css.indexOf("w-") != -1) {
-						weight = new Number(css.split("w-")[1][0]);
-					} else {
-						weight = 1;
-					}
-					boxes = box.siblings();
-					for(var i=0; i<boxes.length; i++) {
-						element = $(boxes[i]);
-						css = element.attr("class");
-						level = new Number(css.split("b-")[1][0]);
-						element.removeClass("b-" + level);
-						element.addClass("b-" + (level - 1));
-						element.find("span").html(element.attr("class").replace("dark", ""));
-					}
-					box.removeClass("w-" + weight);
-					box.addClass("w-" + (weight - 1));
-					box.find("span").html(box.attr("class").replace("dark", ""));
 					
 				}
 
-				return that
-			}
-
-			function Buttons () {
-				
-				var that = htmlCanvas.widget();
-				var classes = ['default', 'success', 'primary', 'warning', 'danger'];
-				
-				that.renderOn = function(html) {
-					for(i in classes) {
-						c = classes[i];
-						panel = html.div().addClass('panel').asJQuery();
-						html.span('<button class="' + c + '"></button>').asJQuery().appendTo(panel);
-						html.button(c).addClass(c).asJQuery().appendTo(panel);
-					}
-				}
-				
 				return that
 			}
 	
