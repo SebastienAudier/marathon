@@ -58,13 +58,20 @@
 					sidebar = html.div().addClass("sidebar").asJQuery();	
 					nav = html.div().addClass("nav").asJQuery();
 					nav.appendTo(sidebar);
-					html.span("Start").addClass("page").click(function(){showStart()}).asJQuery().appendTo(nav);
+					html.span("Start").addClass("page selected").click(function(){showStart($(this))}).asJQuery().appendTo(nav);
 					html.span("Atomic").click(function(){showAtomicMenu($(this))}).asJQuery().appendTo(nav);
 					html.div().setAttribute('id', 'container')
 				}
 				
-				function showStart() {
+				function resetContainer() {
+					container = $('#container');
+					container.html('');
+				}
 				
+				function showStart() {
+					resetContainer();
+					$(".selected").removeClass("selected");
+					item.addClass("selected");
 				}
 
 				
@@ -106,8 +113,8 @@
 				var that = htmlCanvas.widget();
 				
 				that.renderOn = function(html) {
-					html.span("Buttons").addClass("page").click(function(){showButtons()});
-					html.span("Layout").addClass("page").click(function(){showLayout()})
+					html.span("Buttons").addClass("page").click(function(){showButtons($(this))});
+					html.span("Layout").addClass("page").click(function(){showLayout($(this))})
 				}
 					
 				function resetContainer() {
@@ -115,13 +122,17 @@
 					container.html('');
 				}
 
-				function showButtons() {
-					resetContainer();	
+				function showButtons(item) {
+					resetContainer();
+					$(".selected").removeClass("selected");
+					item.addClass("selected");
 					Buttons().appendTo(container);
 				}
 				
-				function showLayout() {
+				function showLayout(item) {
 					resetContainer();	
+					$(".selected").removeClass("selected");
+					item.addClass("selected");
 					Layouts().appendTo(container);
 				}
 			

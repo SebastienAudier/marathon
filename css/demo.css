@@ -41,6 +41,11 @@ h1 {
 	color: #3B3b3b;
 }
 
+.page.selected {
+	color: #0088CC;
+	font-weight: bold;
+}
+
 .nav span:hover {
 	color: #0088CC;
 }
