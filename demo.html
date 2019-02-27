@@ -184,7 +184,7 @@
 					$("#builder").html("")
 					Builder(count, isAiry).appendTo($("#builder"));
 					$("#renderer").html("");
-					code = replaceAll($("#builder").html(), " dark", "");
+					code = replaceAll(replaceAll(replaceAll(replaceAll($("#builder").html(), " dark", ""), "><div", ">\n\t<div"), "</div><div", "</div>\n<div"), "</div></div>", "</div>\n</div>");
 					
 					var editor = CodeMirror(document.getElementById("renderer"), {
 						value: code,
