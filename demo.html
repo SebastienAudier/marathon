@@ -11,6 +11,7 @@
 
 	<!-- External js -->
 	<script type='text/javascript' src='./js/external/codeMirror/codemirror.js'></script> 
+	<script type='text/javascript' src='./js/external/codeMirror/addons/matchbrackets.js'></script> 
 	<script type='text/javascript' src='./js/external/codeMirror/modes/xml.js'></script>
 	<script type='text/javascript' src='./js/external/codeMirror/modes/htmlmixed.js'></script> 
 	<script type='text/javascript' src='./js/external/codeMirror/modes/javascript.js'></script>
@@ -184,12 +185,10 @@
 					Builder(count, isAiry).appendTo($("#builder"));
 					$("#renderer").html("");
 					code = replaceAll($("#builder").html(), " dark", "");
+					
 					var editor = CodeMirror(document.getElementById("renderer"), {
 						value: code,
-						mode:  "text/html",
-						lineWrapping: true,
-						matchBrackets: true,
-						tabMode: "indent"
+						matchbrackets: true
 					});
 				}
 
