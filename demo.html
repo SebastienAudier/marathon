@@ -60,7 +60,8 @@
 					nav.appendTo(sidebar);
 					html.span("Start").addClass("page selected").click(function(){showStart($(this))}).asJQuery().appendTo(nav);
 					html.span("Atomic").click(function(){showAtomicMenu($(this))}).asJQuery().appendTo(nav);
-					html.div().setAttribute('id', 'container')
+					html.div().setAttribute('id', 'container');
+					StartPage().appendTo($("#container"))
 				}
 				
 				function resetContainer() {
@@ -72,6 +73,7 @@
 					resetContainer();
 					$(".selected").removeClass("selected");
 					item.addClass("selected");
+					StartPage().appendTo($("#container"));
 				}
 
 				
@@ -83,6 +85,20 @@
 								
 				return that
 			}
+	
+			function StartPage() {
+			
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+					container = html.div().addClass("panel").asJQuery();
+					html.h2("How to start ?").asJQuery().appendTo(container);
+					html.code('<script type="text/javascript" src="./src/marathon.min.js">').asJQuery().appendTo(container);
+				}
+								
+				return that
+			}
+	
 	
 			function AtomicMenu() {
 			
