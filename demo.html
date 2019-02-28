@@ -167,10 +167,9 @@
 					html.span('Box number :').addClass("box").asJQuery().appendTo(boxes);
 					
 					select = html.select().addClass("box").asJQuery();
-					select.change(function () {count = event.target.value; generateLayouts()});
+					select.change(function (event) {count = event.target.value; generateLayouts()});
 					select.appendTo(boxes);
 
-					html.div().setAttribute("id", "builder");
 					var i = 1;
 					while(i<13) {
 						html.option(i.toString()).setAttribute("value", i).asJQuery().appendTo(select);
@@ -179,11 +178,13 @@
 
 					html.span('Is airy :').addClass("box").asJQuery().appendTo(boxes);
 					select = html.select().addClass("box").asJQuery();
-					select.change(function () {isAiry = event.target.value != false; generateLayouts()});
+					select.change(function (event) {isAiry = event.target.value != false; generateLayouts()});
 					select.appendTo(boxes);
 
 					html.option('no').setAttribute("value", 0).asJQuery().appendTo(select);
 					html.option('yes').setAttribute("value", 1).asJQuery().appendTo(select);
+
+					html.div().setAttribute("id", "builder");
 					
 					html.div().setAttribute("id", "renderer");
 					

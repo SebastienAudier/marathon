@@ -75,10 +75,15 @@ h1 {
 #renderer {
 	width: 88%;
 	padding: 4%;
-	float: left;
 	margin: 2%;
 	box-shadow: 0px 1px 2px #aaa;
+	float: left;
 	font-family: helvetica;
+}
+
+#builder .boxes,
+#renderer {
+	box-shadow: none;
 }
 
 .panel span {
