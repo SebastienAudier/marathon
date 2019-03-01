@@ -69,7 +69,7 @@
 					container.html('');
 				}
 				
-				function showStart() {
+				function showStart(item) {
 					resetContainer();
 					$(".selected").removeClass("selected");
 					item.addClass("selected");
@@ -93,7 +93,15 @@
 				that.renderOn = function(html) {
 					container = html.div().addClass("panel").asJQuery();
 					html.h2("How to start ?").asJQuery().appendTo(container);
-					html.code('<script type="text/javascript" src="./src/marathon.min.js">').asJQuery().appendTo(container);
+					renderer = html.div().addClass("renderer").asJQuery();
+					renderer.appendTo(container);
+					var code = '<script type="text/javascript" src="./src/marathon.min.js">\n<link rel="sylesheet" href="./src/marathon.min.css">';
+						var editor = CodeMirror(renderer[0], {
+						value: code,
+						mode: "xml",
+						matchbrackets: true
+					});
+
 				}
 								
 				return that
@@ -163,8 +171,14 @@
 				that.renderOn = function(html) {
 					for(i in classes) {
 						c = classes[i];
-						panel = html.div().addClass('panel').asJQuery();
-						html.span('<button class="' + c + '"></button>').asJQuery().appendTo(panel);
+						panel = html.div().addClass('panel buttons').asJQuery();
+						code = '<button class="' + c + '"></button>';
+						renderer = html.div().addClass("renderer").asJQuery();
+						renderer.appendTo(panel);
+						var editor = CodeMirror(renderer[0], {
+							value: code,
+							matchbrackets: true
+						});
 						html.button(c).addClass(c).asJQuery().appendTo(panel);
 					}
 				}
@@ -202,7 +216,7 @@
 
 					html.div().setAttribute("id", "builder");
 					
-					html.div().setAttribute("id", "renderer");
+					html.div().addClass("renderer");
 					
 					generateLayouts(1);
 					
@@ -211,10 +225,10 @@
 				function generateLayouts() {
 					$("#builder").html("")
 					Builder(count, isAiry).appendTo($("#builder"));
-					$("#renderer").html("");
+					$(".renderer").html("");
 					code = replaceAll(replaceAll(replaceAll(replaceAll($("#builder").html(), " dark", ""), "><div", ">\n\t<div"), "</div><div", "</div>\n<div"), "</div></div>", "</div>\n</div>");
 					
-					var editor = CodeMirror(document.getElementById("renderer"), {
+					var editor = CodeMirror($(".renderer")[0], {
 						value: code,
 						matchbrackets: true
 					});

@@ -29,6 +29,7 @@ h1 {
 	width: 70%;
 	float: left;
 	min-height: 500px;
+	font-size: 12px;
 }
 
 .nav,
@@ -72,7 +73,7 @@ h1 {
 
 .panel,
 .boxes,
-#renderer {
+.renderer {
 	width: 88%;
 	padding: 4%;
 	margin: 2%;
@@ -82,15 +83,24 @@ h1 {
 }
 
 #builder .boxes,
-#renderer {
+.renderer {
 	box-shadow: none;
+	padding-bottom: 0px;
+	padding-top: 0px;
 }
 
-.panel span {
+.panel.buttons .renderer,
+.panel.buttons .renderer .CodeMirror {
 	float: left;
 	width: 70%;
 	font-family: helvetica;
 	font-weight: bold;
+	height: 28px;
+	padding-top: 0px;
+}
+
+.panel.buttons .renderer {
+	margin-top: 10px;
 }
 
 .panel button {
