@@ -34,6 +34,7 @@
 		
 		<script>
 
+			var debug;
 		
 			function replaceAll(str, find, replace) {
 				return str.replace(new RegExp(find, 'g'), replace);
@@ -179,8 +180,18 @@
 							value: code,
 							matchbrackets: true
 						});
+						html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
 						html.button(c).addClass(c).asJQuery().appendTo(panel);
 					}
+				}
+				
+				function copy(element) {
+					debug = element;
+					var $temp = $("<input>");
+					$("body").append($temp);
+					$temp.val(element.text()).select();
+					document.execCommand("copy");
+					$temp.remove();
 				}
 				
 				return that

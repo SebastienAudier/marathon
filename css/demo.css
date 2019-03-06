@@ -121,4 +121,17 @@ h1 {
 	background: #3B3B3B;
 }
 
+.copy {
+	background: url("./../img/copy.png") no-repeat;
+	background-size: 18px;
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-top: 2px;
+	cursor: pointer;
+	display: none;
+}
 
+.renderer:hover .copy {
+	display: block;
+}
