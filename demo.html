@@ -102,7 +102,16 @@
 						mode: "xml",
 						matchbrackets: true
 					});
-
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
+				}
+				
+				function copy(element) {
+					debug = element;
+					var $temp = $("<input>");
+					$("body").append($temp);
+					$temp.val(element.text()).select();
+					document.execCommand("copy");
+					$temp.remove();
 				}
 								
 				return that

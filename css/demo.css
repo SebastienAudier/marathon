@@ -99,6 +99,11 @@ h1 {
 	padding-top: 0px;
 }
 
+.panel .renderer .CodeMirror {
+	width: 80%;
+	float: left;
+}
+
 .panel.buttons .renderer {
 	margin-top: 10px;
 }
