@@ -107,9 +107,10 @@
 				
 				function copy(element) {
 					debug = element;
-					var $temp = $("<input>");
+					var $temp = $("<textarea>");
 					$("body").append($temp);
-					$temp.val(element.text()).select();
+					str = replaceAll(element.text(), '><', '>\n<');
+					$temp.val(str).select();
 					document.execCommand("copy");
 					$temp.remove();
 				}
@@ -252,8 +253,31 @@
 						value: code,
 						matchbrackets: true
 					});
+					
+					LayoutCopy().appendTo($(".renderer"))
 				}
+				
+				return that
+			}
+			
+			function LayoutCopy () {
+				
+				var that = htmlCanvas.widget();
 
+				that.renderOn = function(html) {
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))})
+				}
+				
+				function copy(element) {
+					debug = element;
+					var $temp = $("<textarea>");
+					$("body").append($temp);
+					str = element.text();
+					$temp.val(str).select();
+					document.execCommand("copy");
+					$temp.remove();
+				}
+				
 				return that
 			}
 			
