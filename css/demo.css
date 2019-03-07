@@ -48,17 +48,20 @@ h1 {
 }
 
 .nav span:hover {
-	color: #0088CC;
+	background: #eee;
 }
 
-.nav .nav {
+.nav span {
+	width: 100%;
+	float: left;
+}
+
+.nav .nav span {
+	width: 100%;
 	padding-left: 15%;
 	width: 85%;
+	float: left;
 }
-
-.nav .page {
-	font-weight: bold;
-} 
 
 .nav .nav span {
 	font-size: 14px;
@@ -68,7 +71,6 @@ h1 {
 	padding-left: 25%;
 	width: 75%;
 	float: left;
-	font-weight: bold;
 }
 
 .panel,
