@@ -60,7 +60,9 @@
 					nav = html.div().addClass("nav").asJQuery();
 					nav.appendTo(sidebar);
 					html.span("Start").addClass("page selected").click(function(){showStart($(this))}).asJQuery().appendTo(nav);
-					html.span("Atomic").click(function(){showAtomicMenu($(this))}).asJQuery().appendTo(nav);
+					html.span("Atomic").asJQuery().appendTo(nav);
+					AtomicMenu().appendTo(nav);
+					html.span("Complex").asJQuery().appendTo(nav);
 					html.div().setAttribute('id', 'container');
 					StartPage().appendTo($("#container"))
 				}
@@ -75,13 +77,6 @@
 					$(".selected").removeClass("selected");
 					item.addClass("selected");
 					StartPage().appendTo($("#container"));
-				}
-
-				
-				function showAtomicMenu(item) {
-					if(!$(item.next()).hasClass('nav')) {
-						AtomicMenu().appendTo(nav)
-					}
 				}
 								
 				return that
@@ -126,24 +121,15 @@
 				
 				that.renderOn = function(html) {
 					nav = html.div().addClass("nav").asJQuery();
-					html.span("CSS").click(function(){showCssMenu(nav)}).asJQuery().appendTo(nav);
-				}
-				
-				function showCssMenu(nav) {
-					if(isClosed()) {
-						CssMenu(nav).appendTo(nav);
-						nav.addClass("opened")
-					}
-				}
-
-				function isClosed() {
-					return !nav.hasClass('opened')
+					html.span("CSS").asJQuery().appendTo(nav);
+					CssMenu().appendTo(nav);
 				}
 				
 				return that
 			}
+			
 	
-			function CssMenu(nav) {
+			function CssMenu() {
 			
 				var that = htmlCanvas.widget();
 				
