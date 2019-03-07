@@ -272,7 +272,7 @@
 					debug = element;
 					var $temp = $("<textarea>");
 					$("body").append($temp);
-					str = element.text();
+					str = replaceAll(replaceAll(element.text(), "    ", "\n\t"), "</div></div>", "</div>\n</div>");
 					$temp.val(str).select();
 					document.execCommand("copy");
 					$temp.remove();
