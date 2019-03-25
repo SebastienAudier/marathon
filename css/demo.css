@@ -145,3 +145,15 @@ h1 {
 .renderer:hover .copy {
 	display: block;
 }
+
+.panel.tutorial p {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	float: left;
+	width: 100%;
+}
+
+.panel.tutorial button {
+	float: right;
+	margin-right: 30px;
+}

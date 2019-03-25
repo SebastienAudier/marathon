@@ -20,9 +20,11 @@
 	<!-- Externals  css -->
 	<link rel="stylesheet" href="./css/external/codemirror.css" rel="stylesheet"
 	
-	<!-- Marathon libraries  -->
+	<!-- Marathon js libraries  -->
 	<script type='text/javascript' src='./js/layout.js'></script> 
-
+	<script type='text/javascript' src='./js/tutorial.js'></script>
+		
+	<!-- Marathon css libraries  -->
 	<link rel="stylesheet" href="./css/buttons.css" rel="stylesheet">
 
 	<!-- Demo css  -->
@@ -63,6 +65,7 @@
 					html.span("Atomic").asJQuery().appendTo(nav);
 					AtomicMenu().appendTo(nav);
 					html.span("Complex").asJQuery().appendTo(nav);
+					ComplexMenu().appendTo(nav);
 					html.div().setAttribute('id', 'container');
 					StartPage().appendTo($("#container"))
 				}
@@ -128,6 +131,20 @@
 				return that
 			}
 			
+			function ComplexMenu() {
+			
+				var that = htmlCanvas.widget();
+				var nav;
+				
+				that.renderOn = function(html) {
+					nav = html.div().addClass("nav").asJQuery();
+					html.span("Modes").asJQuery().appendTo(nav);
+					ModesMenu().appendTo(nav);
+				}
+				
+				return that
+			}
+			
 	
 			function CssMenu() {
 			
@@ -157,6 +174,45 @@
 					Layouts().appendTo(container);
 				}
 			
+				return that
+			}
+			
+			function ModesMenu() {
+			
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+					html.span("Tutorial").addClass("page").click(function(){showTutorial($(this))});
+				}
+					
+				function resetContainer() {
+					container = $('#container');
+					container.html('');
+				}
+
+				function showTutorial(item) {
+					resetContainer();
+					$(".selected").removeClass("selected");
+					item.addClass("selected");
+					Tutorial().appendTo(container);
+				}
+							
+				return that
+			}
+			
+			function Tutorial() {
+					
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+					div = html.div().addClass("panel tutorial").asJQuery();
+					html.h1("Example title").asJQuery().appendTo(div);
+					html.span("This is a first comment on this element...").addClass("mr-comment").asJQuery().appendTo(div);
+					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
+					html.span("This is a second comment on this element...").addClass("mr-comment").asJQuery().appendTo(div);
+					html.button("Example").addClass("primary").click(function () {openTutorial()}).asJQuery().appendTo(div);
+				}
+								
 				return that
 			}
 			
