@@ -64,7 +64,7 @@ function HiddingBoxes(element) {
 		
 		container = html.div().addClass("mr-comment-container").asJQuery();
 			
-		var top = new Number(div.css("top").split("px")[0]) + (4 * margin) + "px";
+		var top = new Number(div.css("top").split("px")[0]) + (6 * margin) + "px";
 		container.css("top", top);
 		
 
@@ -72,7 +72,7 @@ function HiddingBoxes(element) {
 
 		container.css("left", left);
 		
-		var height = (new Number(div.css("height").split("px")[0]) - (10 * margin)) + "px";
+		var height = (new Number(div.css("height").split("px")[0]) - (12 * margin)) + "px";
 		container.css("height", height);
 		
 		var width = (new Number(div.css("width").split("px")[0]) - (16 * margin)) + "px";
