@@ -1,0 +1,45 @@
+.mr-comment {
+	display: none
+} 
+
+.mr-hidding {
+	position: fixed; 
+	background: #000; 
+	opacity: 0.7; 
+	z-index: 10000
+}
+
+.mr-comment-container {
+	position: fixed; 
+	background: #000; 
+	z-index: 100000; 
+	box-shadow: 0px 0px 3px #000
+}
+
+.mr-arrow {
+	font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+	box-shadow: 0px 0px 2px #3b3b3B; 
+	position: fixed; 
+	top: 45%; 
+	cursor: pointer; 
+	font-size: 44px; 
+	background: #000; 
+	padding-left: 14px; 
+	padding-right: 14px; 
+	border-radius: 24px; 
+	color: #fff; 
+	font-weight: bold; 
+	z-index: 10000
+}
+
+.mr-arrow:hover {
+	background: #0088AA
+}
+
+.mr-arrow.left{
+	left: 25px;
+} 
+
+.mr-arrow.right {
+	right: 25px;
+}
