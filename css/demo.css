@@ -19,7 +19,9 @@ h1 {
 
 .sidebar {
 	padding: 2%;
-	width: 16%;
+	padding-left: 4%;
+	padding-top: 4%;
+	width: 14%;
 	float: left;
 	min-height: 500px;
 }
@@ -35,7 +37,6 @@ h1 {
 .nav,
 .page {
 	width: 95%;
-	padding-left: 5%;
 	float: left;
 	font-family: helvetica;
 	line-height: 2em;
