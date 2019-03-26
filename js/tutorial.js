@@ -3,8 +3,8 @@ function openTutorial () {
 	boxes = [];
 	comments = $(".mr-comment");
 	for(var i=0; i<comments.length; i++) {
-		target = $(comments[i]).prev();
-		boxes.push(HiddingBoxes(target));
+		target = $(comments[i]);
+		boxes.push(HiddingBoxes($(comments[i])));
 	}
 	boxes[0].appendTo($("html"));
 }
@@ -30,7 +30,7 @@ function HiddingBoxes(element) {
 	
 	that.renderOn = function(html) {
 		
-		box = getBoundingBox(element);
+		box = getBoundingBox(element.prev());
 		
 		div = html.div().addClass("mr-hidding").asJQuery();
 
@@ -79,6 +79,7 @@ function HiddingBoxes(element) {
 		container.css("width", width);
 		
 		container.appendTo($("html"));
+		container.append(element);
 		
 		$('body').css({'overflow':'hidden'});
 		$(document).bind('scroll',function () { 
