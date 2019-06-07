@@ -29,8 +29,7 @@
 	font-weight: bold;
 }
 
-.mr-arrow {
-	font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+.mr-arrow { 
 	box-shadow: 0px 0px 2px #3b3b3B; 
 	position: fixed; 
 	top: 45%; 
@@ -42,11 +41,36 @@
 	border-radius: 24px; 
 	color: #fff; 
 	font-weight: bold; 
-	z-index: 10000
+	z-index: 1000000;
+	background: #0088BB;
+}
+
+.mr-remove {
+	box-shadow: 0px 0px 2px #3b3b3B; 
+	position: fixed; 
+	top: 5%; 
+	right: 1%;
+	cursor: pointer; 
+	font-size: 44px; 
+	background: #000; 
+	padding-left: 14px; 
+	padding-right: 14px; 
+	border-radius: 24px; 
+	color: #fff; 
+	font-weight: bold; 
+	z-index: 1000000;
+	font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1em;
+    padding-bottom: 6px;
+	background: #be0000;
 }
 
 .mr-arrow:hover {
-	background: #0088AA
+	background: #0088EE
+}
+
+.mr-remove:hover {
+	background: red;
 }
 
 .mr-arrow.left{
