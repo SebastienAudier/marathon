@@ -7,6 +7,7 @@
   
 	<!-- Externals js required -->
 	<script type='text/javascript' src='./js/external/jquery-2.1.4.min.js'></script>
+	<script type='text/javascript' src='./js/external/jquery-ui.min.js'></script>
 	<script type='text/javascript' src='./js/external/htmlCanvas.js'></script> 
 
 	<!-- External js -->
@@ -18,7 +19,8 @@
 	<script type='text/javascript' src='./js/external/codeMirror/modes/css.js'></script>  
 	
 	<!-- Externals  css -->
-	<link rel="stylesheet" href="./css/external/codemirror.css" rel="stylesheet"
+	<link rel="stylesheet" href="./css/external/codemirror.css" rel="stylesheet">
+	<link rel="stylesheet" href="./css/external/jquery-ui.min.css"  rel="stylesheet">
 	
 	<!-- Marathon js libraries  -->
 	<script type='text/javascript' src='./js/layout.js'></script> 
@@ -105,13 +107,13 @@
 				}
 				
 				function copy(element) {
-					debug = element;
 					var $temp = $("<textarea>");
 					$("body").append($temp);
 					str = replaceAll(element.text(), '><', '>\n<');
 					$temp.val(str).select();
 					document.execCommand("copy");
 					$temp.remove();
+					element.effect("highlight", {}, 600);
 				}
 								
 				return that
@@ -281,12 +283,12 @@
 				}
 				
 				function copy(element) {
-					debug = element;
 					var $temp = $("<input>");
 					$("body").append($temp);
 					$temp.val(element.text()).select();
 					document.execCommand("copy");
 					$temp.remove();
+					element.effect("highlight", {}, 600);
 				}
 				
 				return that
@@ -354,13 +356,13 @@
 				}
 				
 				function copy(element) {
-					debug = element;
 					var $temp = $("<textarea>");
 					$("body").append($temp);
 					str = replaceAll(replaceAll(element.text(), "    ", "\n\t"), "</div></div>", "</div>\n</div>");
 					$temp.val(str).select();
 					document.execCommand("copy");
 					$temp.remove();
+					element.effect("highlight", {}, 600);
 				}
 				
 				return that
