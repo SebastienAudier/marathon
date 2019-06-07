@@ -12,10 +12,6 @@ function TutorialSlider(commentedElements) {
 	$('body').css({'overflow':'hidden'});
 	$(document).bind('scroll',function () {window.scrollTo(0,0)});
 	
-	// When finish	
-	//$(document).unbind('scroll'); 
-	//$('body').css({'overflow':'visible'});
-	
 	that.renderOn = function(html) {
 		updateUI();
 		html.span("<").addClass("mr-arrow left").click(function () {showPrevious()});		
@@ -52,6 +48,8 @@ function TutorialSlider(commentedElements) {
 	function closeTutorial () {
 		removeButtons();
 		removeContent();
+		$(document).unbind('scroll'); 
+		$('body').css({'overflow':'visible'});
 	}
 	
 	function removeButtons() {
