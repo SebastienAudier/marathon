@@ -8,10 +8,7 @@ function TutorialSlider(commentedElements) {
 	var that = htmlCanvas.widget();
 	var margin = 10;
 	var index = 0;
-	
-	$('body').css({'overflow':'hidden'});
-	$(document).bind('scroll',function () {window.scrollTo(0,0)});
-	
+		
 	that.renderOn = function(html) {
 		updateUI();
 		html.span("<").addClass("mr-arrow left").click(function () {showPrevious()});		
@@ -21,8 +18,16 @@ function TutorialSlider(commentedElements) {
 	
 	function updateUI() {
 		removeContent();
-		console.log(commentedElements);
 		current = $(commentedElements[index]);
+
+		$('body').css({'overflow':'hidden'});
+		window.scrollTo(0, 0);
+
+
+		if($(window).height() < (current.prev().offset().top + current.prev().height())) {
+			window.scrollTo(0, current.prev().offset().top);
+		} 
+		
 		HiddingBoxes(current, margin).appendTo($("html"));
 		CommentContainer(current, margin).appendTo($("html"));
 	}
@@ -105,8 +110,8 @@ function HiddingBoxes (commentedElement, margin) {
 		box = {
 				xMin: position.left,
 				xMax: position.left + width,
-				yMin: position.top,
-				yMax: position.top + height}
+				yMin: position.top - $(window).scrollTop(),
+				yMax: (position.top - $(window).scrollTop()) + height}
 		return box;
 	}
 	
