@@ -230,27 +230,27 @@
 					comment.appendTo(div);
 					html.span("This is a first comment on this element...").asJQuery().appendTo(comment);
 					comment.appendTo(div);
-					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
-					comment = html.div().addClass("mr-comment").asJQuery();
-					html.span("This is an other comment on this element...").asJQuery().appendTo(comment);
-					comment.appendTo(div);
-					html.hr().asJQuery().appendTo(div);
-					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
-					comment = html.div().addClass("mr-comment").asJQuery();
-					html.span("This is the last comment of the page...").asJQuery().appendTo(comment);
-					comment.appendTo(div);
-					html.span("This is a first comment on this element...").asJQuery().appendTo(comment);
-					comment.appendTo(div);
-					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
-					comment = html.div().addClass("mr-comment").asJQuery();
-					html.span("This is an other comment on this element...").asJQuery().appendTo(comment);
-					comment.appendTo(div);
-					html.hr().asJQuery().appendTo(div);
-					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
-					comment = html.div().addClass("mr-comment").asJQuery();
-					html.span("This is the last comment of the page...").asJQuery().appendTo(comment);
-					comment.appendTo(div);
 					html.button("Example").addClass("primary").click(function () {openTutorial()}).asJQuery().appendTo(div);
+					
+					code = replaceAll($(".panel.tutorial").html(), "</h1>", "</h1>\n");
+					code = replaceAll(code, "</p>", "</p>\n");
+					code = replaceAll(code, "<hr>", "<hr>\n");
+					renderer = html.div().addClass("renderer").asJQuery();
+					renderer.appendTo(div);
+					var editor = CodeMirror(renderer[0], {
+							value: code,
+							matchbrackets: true
+					});
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
+				}
+				
+				function copy(element) {
+					var $temp = $("<input>");
+					$("body").append($temp);
+					$temp.val(element.text()).select();
+					document.execCommand("copy");
+					$temp.remove();
+					element.effect("highlight", {}, 600);
 				}
 								
 				return that
