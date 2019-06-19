@@ -45,6 +45,34 @@
 				return str.replace(new RegExp(find, 'g'), replace);
 			}
 			
+			function updateFromHash (aString) {
+				var hash = "start";
+				if(aString != "") {
+					hash = aString.split("#")[1];
+				}
+				resetContainer();
+				$(".selected").removeClass("selected");
+				$(".nav ." + hash).addClass("selected");
+				if(hash == "start") {
+					StartPage().appendTo($("#container"));
+				} else if(hash == "buttons") {
+					Buttons().appendTo($("#container"));
+				} else if(hash == "layouts") {
+					Layouts().appendTo($("#container"));
+				} else if(hash == "tutorial") {
+					Tutorial().appendTo(container);
+				}
+			}
+			
+			function resetContainer() {
+				container = $('#container');
+				container.html('');
+			}
+			
+			jQuery(window).on('hashchange', function() {
+				updateFromHash(window.location.hash);
+			});
+			
 			function Header() {
 			
 				var that = htmlCanvas.widget();
@@ -64,25 +92,12 @@
 					sidebar = html.div().addClass("sidebar").asJQuery();	
 					nav = html.div().addClass("nav").asJQuery();
 					nav.appendTo(sidebar);
-					html.span("Start").addClass("page selected").click(function(){showStart($(this))}).asJQuery().appendTo(nav);
+					html.span("Start").addClass("page selected start").click(function () {window.location.hash = "start"}).asJQuery().appendTo(nav);
 					html.span("Atomic").asJQuery().appendTo(nav);
 					AtomicMenu().appendTo(nav);
 					html.span("Complex").asJQuery().appendTo(nav);
 					ComplexMenu().appendTo(nav);
 					html.div().setAttribute('id', 'container');
-					StartPage().appendTo($("#container"))
-				}
-				
-				function resetContainer() {
-					container = $('#container');
-					container.html('');
-				}
-				
-				function showStart(item) {
-					resetContainer();
-					$(".selected").removeClass("selected");
-					item.addClass("selected");
-					StartPage().appendTo($("#container"));
 				}
 								
 				return that
@@ -154,27 +169,8 @@
 				var that = htmlCanvas.widget();
 				
 				that.renderOn = function(html) {
-					html.span("Buttons").addClass("page").click(function(){showButtons($(this))});
-					html.span("Layout").addClass("page").click(function(){showLayout($(this))})
-				}
-					
-				function resetContainer() {
-					container = $('#container');
-					container.html('');
-				}
-
-				function showButtons(item) {
-					resetContainer();
-					$(".selected").removeClass("selected");
-					item.addClass("selected");
-					Buttons().appendTo(container);
-				}
-				
-				function showLayout(item) {
-					resetContainer();	
-					$(".selected").removeClass("selected");
-					item.addClass("selected");
-					Layouts().appendTo(container);
+					html.span("Buttons").addClass("page buttons").click(function(){window.location.hash = "buttons"});
+					html.span("Layouts").addClass("page layouts").click(function(){window.location.hash = "layouts"})
 				}
 			
 				return that
@@ -185,19 +181,7 @@
 				var that = htmlCanvas.widget();
 				
 				that.renderOn = function(html) {
-					html.span("Tutorial").addClass("page").click(function(){showTutorial($(this))});
-				}
-					
-				function resetContainer() {
-					container = $('#container');
-					container.html('');
-				}
-
-				function showTutorial(item) {
-					resetContainer();
-					$(".selected").removeClass("selected");
-					item.addClass("selected");
-					Tutorial().appendTo(container);
+					html.span("Tutorial").addClass("page tutorial").click(function(){window.location.hash = "tutorial"});
 				}
 							
 				return that
@@ -418,8 +402,10 @@
 	
 			Header().appendTo($('body'));
 			
-			Browser().appendTo($('body'));	
-	
+			Browser().appendTo($('body'));
+
+			updateFromHash(window.location.hash);
+				
 		</script>
 	</body>
 
