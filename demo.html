@@ -206,6 +206,7 @@
 			function Tutorial() {
 					
 				var that = htmlCanvas.widget();
+				var yellow = "#fff592";
 				
 				that.renderOn = function(html) {
 					div = html.div().addClass("panel tutorial").asJQuery();
@@ -214,10 +215,10 @@
 					html.hr().asJQuery().appendTo(div);
 					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
 					comment = html.div().addClass("mr-comment").asJQuery();
-					html.img().setAttribute("src", "./img/logo.png").asJQuery().appendTo(comment);
-					html.span("This is the last comment of the page...").asJQuery().appendTo(comment);
+					html.img().setAttribute("src", "./img/picture.png").asJQuery().appendTo(comment);
+					html.span("This is the first comment on this element...").asJQuery().appendTo(comment);
 					comment.appendTo(div);
-					html.span("This is a first comment on this element...").asJQuery().appendTo(comment);
+					html.span("This is the last comment on this element...").asJQuery().appendTo(comment);
 					comment.appendTo(div);
 					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
 					comment = html.div().addClass("mr-comment").asJQuery();
@@ -235,22 +236,22 @@
 					code = replaceAll($(".panel.tutorial").html(), "</h1>", "</h1>\n");
 					code = replaceAll(code, "</p>", "</p>\n");
 					code = replaceAll(code, "<hr>", "<hr>\n");
-					renderer = html.div().addClass("renderer").asJQuery();
+					code = replaceAll(code, "<img", "\n\t<img");
+					code = replaceAll(code, "<span>", "\n\t<span>");
+					code = replaceAll(code, "</div>", "\n</div>\n");
+					
+					renderer = html.div().addClass("renderer extra").asJQuery();
 					renderer.appendTo(div);
+					
 					var editor = CodeMirror(renderer[0], {
 							value: code,
 							matchbrackets: true
 					});
-					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
-				}
-				
-				function copy(element) {
-					var $temp = $("<input>");
-					$("body").append($temp);
-					$temp.val(element.text()).select();
-					document.execCommand("copy");
-					$temp.remove();
-					element.effect("highlight", {}, 600);
+					
+					for(var i=4; i<9; i++) {
+						$($(".CodeMirror-line")[i]).css("background", yellow);
+						$($(".CodeMirror-line")[i]).css("font-weight", "bold");
+					}
 				}
 								
 				return that

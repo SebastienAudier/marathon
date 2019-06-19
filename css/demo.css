@@ -88,6 +88,10 @@ h1 {
 	font-family: helvetica;
 }
 
+.renderer.extra  {
+	width: 92%;
+}
+
 #builder .boxes,
 .renderer {
 	box-shadow: none;
@@ -108,6 +112,11 @@ h1 {
 .renderer .CodeMirror {
 	width: 80%;
 	float: left;
+}
+
+.renderer.extra .CodeMirror {
+	width: 100%;
+	min-height: 300px;
 }
 
 .panel.buttons .renderer {
@@ -136,11 +145,13 @@ h1 {
 	background: url("./../img/copy.png") no-repeat;
 	background-size: 18px;
 	width: 18px;
+	max-width: 3%;
 	height: 18px;
 	float: left;
 	margin-top: 2px;
 	cursor: pointer;
 	display: none;
+	margin-left: 2%;
 }
 
 .renderer:hover .copy {
