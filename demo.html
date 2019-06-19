@@ -231,7 +231,10 @@
 					comment.appendTo(div);
 					html.span("This is a first comment on this element...").asJQuery().appendTo(comment);
 					comment.appendTo(div);
-					html.button("Example").addClass("primary").click(function () {openTutorial()}).asJQuery().appendTo(div);
+					
+					html.hr().asJQuery().appendTo(div);
+					
+					html.h2("Code example").asJQuery().appendTo(div);
 					
 					code = replaceAll($(".panel.tutorial").html(), "</h1>", "</h1>\n");
 					code = replaceAll(code, "</p>", "</p>\n");
@@ -252,6 +255,8 @@
 						$($(".CodeMirror-line")[i]).css("background", yellow);
 						$($(".CodeMirror-line")[i]).css("font-weight", "bold");
 					}
+					
+					html.button("Try it").addClass("primary").click(function () {openTutorial()}).asJQuery().appendTo(div);
 				}
 								
 				return that

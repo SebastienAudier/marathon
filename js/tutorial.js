@@ -132,6 +132,8 @@ function CommentContainer (commentedElement, margin) {
 		container.css("width", new Number(div.css("width").split("px")[0]) - (20 * margin) + "px");
 		container.appendTo($("html"));
 		container.append(commentedElement.clone());
+		
+		// analyse commentedElement here and build the slide.
 	}
 	
 	function getBiggestContainer() {
