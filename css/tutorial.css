@@ -16,17 +16,47 @@
 	box-shadow: 0px 0px 3px #000;
 }
 
-.mr-comment-container .mr-comment {
+.mr-comment-container .screenshots {
+	float: left;
+    width: 20%;
+    height: 100%;
+	overflow: hidden;
+}
+
+.mr-comment-container img {
+	margin: auto;
+	width: 100%;
+}
+
+.mr-comment-container .comments {
 	color: #fff;
     display: block;
-	padding: 10%;
+	padding: 5%;
 	padding-top: 40px;
 	padding-bottom: 20px;
-	text-align: center;
-	width: 80%;
-	font-size: 30px;
+	width: 70%;
+	float: left;
+	font-size: 14px;
 	font-family: helvetica;
 	font-weight: bold;
+	overflow-y: auto;
+}
+
+.mr-comment-container .comments h4 {
+	font-size: 16px;
+}
+
+.mr-comment-container .comments h3 {
+	font-size: 20px;
+}
+
+.mr-comment-container .comments h2 {
+	font-size: 24px;
+}
+
+.mr-comment-container .comments > * {
+	float: left;
+	width: 100%;
 }
 
 .mr-arrow { 

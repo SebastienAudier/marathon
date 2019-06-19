@@ -216,13 +216,14 @@
 					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
 					comment = html.div().addClass("mr-comment").asJQuery();
 					html.img().setAttribute("src", "./img/picture.png").asJQuery().appendTo(comment);
+					html.h2("This is an h2 element...").asJQuery().appendTo(comment);
 					html.span("This is the first comment on this element...").asJQuery().appendTo(comment);
-					comment.appendTo(div);
+					html.h3("This is an h3 element...").asJQuery().appendTo(comment);
 					html.span("This is the last comment on this element...").asJQuery().appendTo(comment);
 					comment.appendTo(div);
 					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
 					comment = html.div().addClass("mr-comment").asJQuery();
-					html.span("This is an other comment on this element...").asJQuery().appendTo(comment);
+					html.span("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(comment);
 					comment.appendTo(div);
 					html.hr().asJQuery().appendTo(div);
 					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
@@ -242,6 +243,8 @@
 					code = replaceAll(code, "<img", "\n\t<img");
 					code = replaceAll(code, "<span>", "\n\t<span>");
 					code = replaceAll(code, "</div>", "\n</div>\n");
+					code = replaceAll(code, "<h2>", "\n\t<h2>");
+					code = replaceAll(code, "<h3>", "\n\t<h3>");
 					
 					renderer = html.div().addClass("renderer extra").asJQuery();
 					renderer.appendTo(div);
@@ -251,7 +254,7 @@
 							matchbrackets: true
 					});
 					
-					for(var i=4; i<9; i++) {
+					for(var i=4; i<11; i++) {
 						$($(".CodeMirror-line")[i]).css("background", yellow);
 						$($(".CodeMirror-line")[i]).css("font-weight", "bold");
 					}

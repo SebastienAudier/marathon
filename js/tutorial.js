@@ -122,6 +122,9 @@ function HiddingBoxes (commentedElement, margin) {
 function CommentContainer (commentedElement, margin) {
 	
 	var that = htmlCanvas.widget();
+	var images = [];
+	var videos = [];
+	var comments = [];
 	
 	that.renderOn = function (html) {
 		div = getBiggestContainer();
@@ -131,9 +134,36 @@ function CommentContainer (commentedElement, margin) {
 		container.css("height", new Number(div.css("height").split("px")[0]) - (12 * margin) + "px");
 		container.css("width", new Number(div.css("width").split("px")[0]) - (20 * margin) + "px");
 		container.appendTo($("html"));
-		container.append(commentedElement.clone());
 		
-		// analyse commentedElement here and build the slide.
+		for(var i=0; i<commentedElement.children().length; i ++) {
+			element = commentedElement.children()[i];
+			if($(element).is("img")) {
+				images.push($(element).clone());
+			} else if ($(element).is("video")) {
+				videos.push($(element).clone());
+			} else {
+				comments.push($(element).clone());
+			}
+		}
+				
+		var medias = images.concat(videos);
+		if(medias.length > 0) {
+			screenshots = html.div().addClass("screenshots").asJQuery();
+			screenshots.appendTo(container);
+			if(medias.length == 1) {
+				screenshots.append(medias[0]);
+			} else {
+				// sliders
+			}
+		} 
+		
+		if(comments.length > 0) {
+			content = html.div().addClass("comments").asJQuery();
+			content.appendTo(container);
+			for(var i=0; i<comments.length; i++) {
+				content.append(comments[i]);
+			}
+		}
 	}
 	
 	function getBiggestContainer() {
