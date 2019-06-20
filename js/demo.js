@@ -20,6 +20,8 @@ var debug;
 					Layouts().appendTo($("#container"));
 				} else if(hash == "tutorial") {
 					Tutorial().appendTo(container);
+				} else if(hash == "slider") {
+					Slider().appendTo(container);
 				}
 			}
 			
@@ -290,6 +292,107 @@ var debug;
 					element.effect("highlight", {}, 600);
 				}
 								
+				return that
+			}
+			
+			function Slider () {
+				
+				var that = htmlCanvas.widget();
+			
+				that.renderOn = function(html) {
+					slideshow = html.div().addClass("slideshow");
+					SlideLeftButton().appendTo(slideshow.asJQuery());
+					SlideContainer().appendTo(slideshow.asJQuery());
+					SlideRightButton().appendTo(slideshow.asJQuery());
+					SlideBullets().appendTo(slideshow.asJQuery());
+			
+					for(var i=0; i<jQuery('.slide-items').length; i++) {
+						slideshow = jQuery('.slide-items');
+						items = jQuery(slideshow.children());
+						slideshow.css('width', (items.length) * 100 + '%');
+						for(var j=0; j<items.length; j++){
+							jQuery(items[j]).css('width', (100 / jQuery(".slide-item").length) + '%');
+						}
+					}	
+				}
+				
+				return that
+			}
+			
+			function SlideContainer() {
+				var that = htmlCanvas.widget();
+				var container;
+
+				that.renderOn = function (html) {
+					container = html.div().addClass("slide-container");
+					SlideItems().appendTo(container.asJQuery());
+				}
+				
+				return that
+			}
+
+			function SlideItems() {
+				var that = htmlCanvas.widget();
+				var items;
+
+				that.renderOn = function (html) {
+					items = html.div().addClass("slide-items");
+					item = html.div().addClass("slide-item").asJQuery();
+					html.p("hello").asJQuery().appendTo(item);
+					item.appendTo(items.asJQuery());
+					item = html.div().addClass("slide-item").asJQuery();
+					item.appendTo(items.asJQuery());
+					html.p("hello").asJQuery().appendTo(item);
+					item = html.div().addClass("slide-item").asJQuery();
+					item.appendTo(items.asJQuery());
+					html.p("hello").asJQuery().appendTo(item);
+					item = html.div().addClass("slide-item").asJQuery();
+					item.appendTo(items.asJQuery());
+					html.p("hello").asJQuery().appendTo(item);
+					
+					
+					slide(3000, items.asJQuery());
+				}
+				
+				return that
+			}
+			
+			function SlideLeftButton() {
+				var that = htmlCanvas.widget();
+				var left;
+
+				that.renderOn = function (html) {
+					left = html.div().addClass("slide-left");
+					html.span("<").click(function() {slideLeft(this)}).asJQuery().appendTo(left.asJQuery());
+				}
+
+				return that
+			}
+			
+			function SlideRightButton() {
+				var that = htmlCanvas.widget();
+				var right;
+
+				that.renderOn = function (html) {
+					right = html.div().addClass("slide-right");
+					html.span(">").click(function() {slideRight(this)}).asJQuery().appendTo(right.asJQuery());
+				}
+
+				return that
+			}
+
+			function SlideBullets() {
+				var that = htmlCanvas.widget();
+				var bullets;
+
+				that.renderOn = function (html) {
+					bullets = html.div().addClass("bullets");
+					html.div().addClass("bullet current").click(function() {slideFromBullet(this)}).asJQuery().appendTo(bullets.asJQuery());
+					html.div().addClass("bullet").click(function() {slideFromBullet(this)}).asJQuery().appendTo(bullets.asJQuery());
+					html.div().addClass("bullet").click(function() {slideFromBullet(this)}).asJQuery().appendTo(bullets.asJQuery());
+					html.div().addClass("bullet").click(function() {slideFromBullet(this)}).asJQuery().appendTo(bullets.asJQuery());
+				}
+
 				return that
 			}
 			
