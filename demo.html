@@ -172,6 +172,8 @@
 				
 				that.renderOn = function(html) {
 					nav = html.div().addClass("nav").asJQuery();
+					html.span("Components").asJQuery().appendTo(nav);
+					ComponentsMenu().appendTo(nav);
 					html.span("Modes").asJQuery().appendTo(nav);
 					ModesMenu().appendTo(nav);
 				}
@@ -189,6 +191,17 @@
 					html.span("Layouts").addClass("page layouts").click(function(){window.location.hash = "layouts"})
 				}
 			
+				return that
+			}
+			
+			function ComponentsMenu() {
+			
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function(html) {
+					html.span("Slider").addClass("page slider").click(function(){window.location.hash = "slider"});
+				}
+							
 				return that
 			}
 			
@@ -264,13 +277,26 @@
 					
 					html.div().addClass("break").asJQuery().appendTo(div);
 					
-					html.h2("How to use it").asJQuery().appendTo(div);
+					html.h2("How to use it ?").asJQuery().appendTo(div);
 					
 					renderer = html.div().addClass("renderer small").asJQuery();
 					renderer.appendTo(div);
 					
 					var editor = CodeMirror(renderer[0], {
 							value: '<button onclick="openTutorial()"></button>',
+							matchbrackets: true
+					});
+					
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
+					
+					
+					html.h2("How to load it ?").asJQuery().appendTo(div);
+					
+					renderer = html.div().addClass("renderer small").asJQuery();
+					renderer.appendTo(div);
+					
+					var editor = CodeMirror(renderer[0], {
+							value: '...',
 							matchbrackets: true
 					});
 					
