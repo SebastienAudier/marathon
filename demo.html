@@ -110,9 +110,25 @@
 				that.renderOn = function(html) {
 					container = html.div().addClass("panel").asJQuery();
 					html.h2("How to start ?").asJQuery().appendTo(container);
-					renderer = html.div().addClass("renderer").asJQuery();
+					html.div().addClass("clear");
+					html.h3("External libraries").asJQuery().appendTo(container);
+					renderer = html.div().addClass("renderer small").asJQuery();
 					renderer.appendTo(container);
-					var code = '<script type="text/javascript" src="./src/marathon.min.js">\n<link rel="sylesheet" href="./src/marathon.min.css">';
+				
+					var code ='<script type="text/javascript" src="./js/external/jquery-2.1.4.min.js"><\/script>\n<script type="text/javascript" src="./js/external/htmlCanvas.js"><\/script>';
+						var editor = CodeMirror(renderer[0], {
+						value: code,
+						mode: "xml",
+						matchbrackets: true
+					});
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
+					
+					html.div().addClass("clear");
+					html.h3("Internal libraries").asJQuery().appendTo(container);
+					renderer = html.div().addClass("renderer small").asJQuery();
+					renderer.appendTo(container);
+				
+					var code ='<script type="text/javascript" src="./src/marathon.min.js"><\/script>\n<link rel="sylesheet" href="./src/marathon.min.css">';
 						var editor = CodeMirror(renderer[0], {
 						value: code,
 						mode: "xml",
@@ -217,18 +233,19 @@
 					html.span("This is a first comment on this element...").asJQuery().appendTo(comment);
 					comment.appendTo(div);
 					
-					html.div().addClass("break").asJQuery().appendTo(div);
-					
-					html.h2("Code source").asJQuery().appendTo(div);
-					
 					code = replaceAll($(".panel.tutorial").html(), "</h1>", "</h1>\n");
 					code = replaceAll(code, "</p>", "</p>\n");
 					code = replaceAll(code, "<hr>", "<hr>\n");
 					code = replaceAll(code, "<img", "\n\t<img");
 					code = replaceAll(code, "<span>", "\n\t<span>");
 					code = replaceAll(code, "</div>", "\n</div>\n");
-					code = replaceAll(code, "<h2>", "\n\t<h2>");
+					code = replaceAll(code, "><h2>", ">\n\t<h2>");
+					code = replaceAll(code, "</h2><p>", "<h2>\n<p>");
 					code = replaceAll(code, "<h3>", "\n\t<h3>");
+									
+					html.div().addClass("break").asJQuery().appendTo(div);
+					
+					html.h2("Code source").asJQuery().appendTo(div);
 					
 					renderer = html.div().addClass("renderer extra").asJQuery();
 					renderer.appendTo(div);
@@ -244,6 +261,31 @@
 					}
 					
 					html.button("Try it").addClass("primary").click(function () {openTutorial()}).asJQuery().appendTo(div);
+					
+					html.div().addClass("break").asJQuery().appendTo(div);
+					
+					html.h2("How to use it").asJQuery().appendTo(div);
+					
+					renderer = html.div().addClass("renderer small").asJQuery();
+					renderer.appendTo(div);
+					
+					var editor = CodeMirror(renderer[0], {
+							value: '<button onclick="openTutorial()"></button>',
+							matchbrackets: true
+					});
+					
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
+					
+				}
+				
+				function copy(element) {
+					var $temp = $("<textarea>");
+					$("body").append($temp);
+					str = replaceAll(element.text(), '><', '>\n<');
+					$temp.val(str).select();
+					document.execCommand("copy");
+					$temp.remove();
+					element.effect("highlight", {}, 600);
 				}
 								
 				return that

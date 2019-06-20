@@ -88,6 +88,16 @@ h1 {
 	font-family: helvetica;
 }
 
+.panel h3 {
+	padding-left: 15px;
+	margin-top: 30px;
+	color: #3b3b3B;
+}
+
+.renderer.small .CodeMirror {
+	height: 80px;
+}
+
 .renderer.extra  {
 	width: 92%;
 }
@@ -168,6 +178,11 @@ h1 {
 .panel.tutorial button {
 	float: right;
 	margin-right: 30px;
+}
+
+.panel.tutorial h2 {
+	float: left;
+	width: 100%;
 }
 
 .break {
