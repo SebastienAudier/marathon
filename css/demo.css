@@ -180,7 +180,8 @@ h1 {
 	margin-right: 30px;
 }
 
-.panel.tutorial h2 {
+.panel h2,
+.panel h3 {
 	float: left;
 	width: 100%;
 }
