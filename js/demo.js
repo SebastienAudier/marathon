@@ -251,7 +251,7 @@ var debug;
 					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
 					
 					
-					html.h2("How to load it ?").asJQuery().appendTo(div);
+					html.h2("How to load it alone ?").asJQuery().appendTo(div);
 					
 					html.h3("External libraries").asJQuery().appendTo(div);
 					
@@ -338,19 +338,20 @@ var debug;
 				that.renderOn = function (html) {
 					items = html.div().addClass("slide-items");
 					item = html.div().addClass("slide-item").asJQuery();
-					html.p("hello").asJQuery().appendTo(item);
+					html.img().setAttribute("src", "./img/slider/s1.jpg").asJQuery().appendTo(item);
 					item.appendTo(items.asJQuery());
 					item = html.div().addClass("slide-item").asJQuery();
 					item.appendTo(items.asJQuery());
-					html.p("hello").asJQuery().appendTo(item);
+					html.img().addClass("picture").setAttribute("src", "./img/picture.png").asJQuery().appendTo(item);
+					html.h2("Example html content").asJQuery().appendTo(item);
+					html.span("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(item);
 					item = html.div().addClass("slide-item").asJQuery();
 					item.appendTo(items.asJQuery());
-					html.p("hello").asJQuery().appendTo(item);
+					html.img().setAttribute("src", "./img/slider/s2.jpg").asJQuery().appendTo(item);
 					item = html.div().addClass("slide-item").asJQuery();
 					item.appendTo(items.asJQuery());
-					html.p("hello").asJQuery().appendTo(item);
-					
-					
+					html.img().setAttribute("src", "./img/slider/s3.jpg").asJQuery().appendTo(item);
+
 					slide(3000, items.asJQuery());
 				}
 				

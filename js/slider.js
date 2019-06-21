@@ -62,8 +62,8 @@ function slideFromBullet(anElement) {
 		
 function slide (aTime, aSlideshow) {
 	setTimeout(function() {
-		if(!aSlideshow.parent().parent().parent().is(":hover")) {
-			slideRight(jQuery(jQuery(aSlideshow.parent().parent().children()[2]).children()[0]));
+		if(!aSlideshow.parent().parent().is(":hover")) {
+			slideRight(jQuery(jQuery(aSlideshow.parent().parent().children()[2]).children()[0]))
 		} 
 		slide(aTime, aSlideshow); 
 	}, aTime);

@@ -6,54 +6,85 @@
 
 .slide-container {
 	float: left;	
-    width: 100%;
-    min-height: 200px;
+    width: 90%;
 	overflow: hidden;
-	border: 1px solid #ccc;
+	box-shadow: 0px 0px 2px #3B3B3B;
 
 }
 
 .slide-items {
 	float: left;	
-    min-height: 200px;
 	transition: all 1s ease-out;
 }
 
 .slide-item {
 	float: left;
-	min-height: 200px;
+	padding: 0px;
+	min-height: 100px;
+}
+
+.slide-item > * {
+	max-width: 100%;
+}
+
+.slide-item img {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	float: left;
 }
 
 .slide-right,
 .slide-left {
-	position: relative;
-	width: 30px;
+	width: 5%;
+	margin-top: 15%;
 }
 
 .slide-left {
-    
+	float: left;
 }
 
 .slide-right {
-    
+	float: right;
 }
 
+/*
+.slide-left.internal,
+.slide-right.internal {
+	position: relative;
+}
+
+.slide-left.internal {
+    top: 115px;
+	left: 10px;
+}
+
+.slide-right.internal {
+    bottom: 112px;
+}
+*/
 .slide-left span,
 .slide-right span {
     background: #0088CC;
     color: #fff;
+	font-family: helvetica;
     font-weight: bold;
     font-size: 22px;
-    padding: 2px;
-    -webkit-border-radius: 14px;
-	-moz-border-radius: 14px;
-	border-radius: 14px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding: 4px;
+    -webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
 	cursor: pointer;
+}
+
+.slide-right span {
+	float: right;
 }
 
 .slide-left span:hover,
 .slide-right span:hover {
-	background: #008899;
+	background: #0088FF;
 }
