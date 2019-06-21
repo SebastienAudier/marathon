@@ -388,8 +388,9 @@ var debug;
 				var left;
 
 				that.renderOn = function (html) {
-					left = html.div().addClass("slide-left");
-					html.span("<").click(function() {slideLeft(this)}).asJQuery().appendTo(left.asJQuery());
+					left = html.div().addClass("slide-left").asJQuery();
+					span = html.span("<").setAttribute("onclick", "slideLeft(this)").asJQuery();
+					span.appendTo(left);
 				}
 
 				return that
@@ -400,8 +401,9 @@ var debug;
 				var right;
 
 				that.renderOn = function (html) {
-					right = html.div().addClass("slide-right");
-					html.span(">").click(function() {slideRight(this)}).asJQuery().appendTo(right.asJQuery());
+					right = html.div().addClass("slide-right").asJQuery();
+					span = html.span(">").setAttribute("onclick", "slideRight(this)").asJQuery();
+					span.appendTo(right);
 				}
 
 				return that
@@ -410,13 +412,21 @@ var debug;
 			function SlideBullets() {
 				var that = htmlCanvas.widget();
 				var bullets;
+				var width = 0;
 
 				that.renderOn = function (html) {
-					bullets = html.div().addClass("bullets");
-					html.div().addClass("bullet current").click(function() {slideFromBullet(this)}).asJQuery().appendTo(bullets.asJQuery());
-					html.div().addClass("bullet").click(function() {slideFromBullet(this)}).asJQuery().appendTo(bullets.asJQuery());
-					html.div().addClass("bullet").click(function() {slideFromBullet(this)}).asJQuery().appendTo(bullets.asJQuery());
-					html.div().addClass("bullet").click(function() {slideFromBullet(this)}).asJQuery().appendTo(bullets.asJQuery());
+					bullets = html.div().addClass("bullets").asJQuery();
+					items = $(".slide-item");
+					for(i=0; i<items.length; i++) {
+						cssClass = "bullet";
+						if(i==0) {
+							cssClass = cssClass + " current";
+						}
+						bullet = html.div().addClass(cssClass).click(function() {slideFromBullet(this)}).asJQuery();
+						bullet.appendTo(bullets);
+						width = width + new Number(bullet.css("width").split("px")[0]) + new Number(bullet.css("margin-right").split("px")[0]) + 2;
+					}
+					bullets.css("width", width + "px");
 				}
 
 				return that

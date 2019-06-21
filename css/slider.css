@@ -91,12 +91,11 @@
 
 .bullets {
 	height: 20px;
-    float: left;
-    width: 40%;
-    margin: 5px auto;
+    margin: 0px auto;
 }
 
 .bullet {
+	margin-top: 10px;
     width: 14px;
     height: 14px;
     border: 1px solid #ccc;
@@ -106,6 +105,7 @@
 	border-radius: 12px;
 	margin-right: 5px;
 	cursor: pointer;
+	
 }
 
 .bullet:hover {
