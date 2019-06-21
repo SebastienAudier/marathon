@@ -88,3 +88,32 @@
 .slide-right span:hover {
 	background: #0088FF;
 }
+
+.bullets {
+	height: 20px;
+    float: left;
+    width: 40%;
+    margin: 5px auto;
+}
+
+.bullet {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #ccc;
+	float: left;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.bullet:hover {
+	background: #ededed;
+}
+
+.bullet.current {
+	background: #0088DD;
+	cursor: default;
+	border: 1px solid #0088AA;
+}

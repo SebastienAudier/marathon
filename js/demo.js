@@ -300,11 +300,35 @@ var debug;
 				var that = htmlCanvas.widget();
 			
 				that.renderOn = function(html) {
-					slideshow = html.div().addClass("slideshow");
-					SlideLeftButton().appendTo(slideshow.asJQuery());
-					SlideContainer().appendTo(slideshow.asJQuery());
-					SlideRightButton().appendTo(slideshow.asJQuery());
-					SlideBullets().appendTo(slideshow.asJQuery());
+					boxes = html.div().addClass('boxes b-4').asJQuery();
+					html.span('Internal arrow:').addClass("box").asJQuery().appendTo(boxes);
+					
+					select = html.select().addClass("box").asJQuery();
+					select.change(function (event) {/*count = event.target.value; generateLayouts()*/});
+					select.appendTo(boxes);
+
+					html.option('no').setAttribute("value", 0).asJQuery().appendTo(select);
+					html.option('yes').setAttribute("value", 1).asJQuery().appendTo(select);
+
+					html.span('Display bullets :').addClass("box").asJQuery().appendTo(boxes);
+					select = html.select().addClass("box").asJQuery();
+					select.change(function (event) { /* isAiry = event.target.value != false; generateLayouts() */});
+					select.appendTo(boxes);
+
+					html.option('yes').setAttribute("value", 1).asJQuery().appendTo(select);
+					html.option('no').setAttribute("value", 0).asJQuery().appendTo(select);
+
+					html.div().addClass("slideshow");
+					generateSlideshow();	
+				}
+				
+				function generateSlideshow() {
+					slideshow = $(".slideshow");
+					slideshow.html("");
+					SlideLeftButton().appendTo(slideshow);
+					SlideContainer().appendTo(slideshow);
+					SlideRightButton().appendTo(slideshow);
+					SlideBullets().appendTo(slideshow);
 			
 					for(var i=0; i<jQuery('.slide-items').length; i++) {
 						slideshow = jQuery('.slide-items');
@@ -313,7 +337,8 @@ var debug;
 						for(var j=0; j<items.length; j++){
 							jQuery(items[j]).css('width', (100 / jQuery(".slide-item").length) + '%');
 						}
-					}	
+					}
+					
 				}
 				
 				return that
