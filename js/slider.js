@@ -21,12 +21,12 @@ function slideRight(anElement) {
 }
 
 function slideLeft(anElement) {
-	slideshow = jQuery(jQuery(jQuery(anElement).parent().parent().children()[1]).children());
-	bullets = jQuery(jQuery(slideshow.parent().parent().children()[3]).children()); 
+	slideshow = $($$($(anElement).parent().parent().children()[1]).children());
+	bullets = $($(slideshow.parent().parent().children()[3]).children()); 
 	index = 0;
 	for (var i=0; i<bullets.length; i++) {
-		if(jQuery(bullets[i]).is(".current")) {
-			jQuery(bullets[i]).removeClass("current");
+		if($(bullets[i]).is(".current")) {
+			$(bullets[i]).removeClass("current");
 			if(i == 0) {
 				index = bullets.length - 1;
 			} else {
@@ -34,7 +34,7 @@ function slideLeft(anElement) {
 			}
 		}
 	}
-	jQuery(bullets[index]).addClass("current");
+	$(bullets[index]).addClass("current");
 	for (var i=0; i<bullets.length; i++) {
 		if(index == i) {
 			slideshow.css('margin-left', (i * -100) + "%");
@@ -44,29 +44,58 @@ function slideLeft(anElement) {
 		
 function slideFromBullet(anElement) {
 	var index;
-	var bullets = jQuery(jQuery(anElement).parent().children());
+	var bullets = $($(anElement).parent().children());
 	for(var i=0; i<bullets.length; i++) {
-		if(jQuery(bullets[i]).is(jQuery(anElement))) {
+		if($(bullets[i]).is($(anElement))) {
 			index = i;
 		}
-		jQuery(bullets[i]).removeClass("current");
+		$(bullets[i]).removeClass("current");
 	}		
-	element = jQuery(jQuery(bullets.parent().parent().children()[1]).children()[0]);
+	element = $(jQuery(bullets.parent().parent().children()[1]).children()[0]);
 	for (var i=0; i<bullets.length; i++) {
 		if(index == i) {
 			element.css('margin-left', (i * -100) + "%");
 		}
 	}
-	jQuery(anElement).addClass("current");
+	$(anElement).addClass("current");
 }
 		
-function slide (aTime, aSlideshow) {
+function slide (aSlideshow, aTime) {
+	left = aSlideshow.children('.slide-left').first();
+	if(left) {
+		left.append('<span onclick="slideLeft(this)"><</span>');
+	}
+	right = aSlideshow.children('.slide-right').first();
+	if(right) {
+		right.append('<span onclick="slideRight(this)">></span>');
+	}
+	slider = aSlideshow.children('.slide-container').children().first();
+	items = jQuery(slider.children());
+	slider.css('width', (items.length) * 100 + '%');
+	bullets = aSlideshow.children('.bullets');
+	var width = 0;
+	for(var i=0; i<items.length; i++){
+		$(items[i]).css('width', (100 / items.length) + '%');
+		cssClass = "bullet";
+		if(i==0) {
+			cssClass = cssClass + " current";
+		}
+		bullets.append('<div class="' + cssClass + '" onclick="slideFromBullet(this)"></div>');
+		width = width + new Number($(".bullet").css("width").split("px")[0]) + new Number($(".bullet").css("margin-right").split("px")[0]) + 2;
+	}
+	bullets.css("width", width + "px");
+	if(aTime > 0) {
+		slideAuto(aSlideshow, aTime);
+	}
+}
+
+function slideAuto(aSlideshow, aTime) {
 	setTimeout(function() {
-		if(!aSlideshow.parent().parent().is(":hover")) {
-			slideRight(jQuery(jQuery(aSlideshow.parent().parent().children()[2]).children()[0]))
-		} 
-		slide(aTime, aSlideshow); 
-	}, aTime);
+			if(!aSlideshow.is(":hover")) {
+				slideRight(aSlideshow.children('.slide-right').first().children()[0])
+			} 
+			slideAuto(aSlideshow, aTime); 
+		}, aTime);
 }
 
 

@@ -20,9 +20,19 @@ button:active {
 }
 
 input, select {
-	background: #fff;
 	border: 1px solid #0088aa;
-	height: 31px;
+	background: #fff;
+	height: 30px;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+input {
+	height: 18px;
+	width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 input:active,

@@ -298,17 +298,19 @@ var debug;
 			function Slider () {
 				
 				var that = htmlCanvas.widget();
+				var slideMode = "external";
 			
 				that.renderOn = function(html) {
 					boxes = html.div().addClass('boxes b-4').asJQuery();
-					html.span('Internal arrow:').addClass("box").asJQuery().appendTo(boxes);
+					html.span('Arrows:').addClass("box").asJQuery().appendTo(boxes);
 					
 					select = html.select().addClass("box").asJQuery();
-					select.change(function (event) {/*count = event.target.value; generateLayouts()*/});
+					select.change(function (event) {slideMode = event.target.value});
 					select.appendTo(boxes);
 
-					html.option('no').setAttribute("value", 0).asJQuery().appendTo(select);
-					html.option('yes').setAttribute("value", 1).asJQuery().appendTo(select);
+					html.option('External').setAttribute("value", "external").asJQuery().appendTo(select);
+					html.option('Internal').setAttribute("value", "internal").asJQuery().appendTo(select);
+					html.option('None').setAttribute("value", "none").asJQuery().appendTo(select);
 
 					html.span('Display bullets :').addClass("box").asJQuery().appendTo(boxes);
 					select = html.select().addClass("box").asJQuery();
@@ -317,9 +319,78 @@ var debug;
 
 					html.option('yes').setAttribute("value", 1).asJQuery().appendTo(select);
 					html.option('no').setAttribute("value", 0).asJQuery().appendTo(select);
+					
+					html.div().addClass("break").asJQuery().appendTo(boxes);
 
-					html.div().addClass("slideshow");
-					generateSlideshow();	
+					html.span('Number of slides :').addClass("box").asJQuery().appendTo(boxes);
+					select = html.select().addClass("box").asJQuery();
+					select.change(function (event) {/*count = event.target.value; generateLayouts()*/});
+					select.appendTo(boxes);
+
+					var i = 1;
+					while(i<13) {
+						option = html.option(i.toString()).setAttribute("value", i);
+						if(i==4) {
+							option.setAttribute("selected", "selected");
+						} 	
+						option.asJQuery().appendTo(select);
+						i++
+					}
+					
+					html.span('Time for event (ms):').addClass("box").asJQuery().appendTo(boxes);
+					box = html.div().addClass("box").addClass("box").asJQuery();
+					input = html.input().setAttribute("value", "3000").asJQuery();
+					input.keyup(function (event) { /* isAiry = event.target.value != false; generateLayouts() */});
+					input.appendTo(box);
+					box.appendTo(boxes);
+
+
+
+					html.div().addClass("slideshow " + slideMode);
+
+					generateSlideshow();
+
+					html.div().addClass("break");
+
+					html.h2("How to build it ?");
+
+					renderer = html.div().addClass("renderer large").asJQuery();
+
+					if(slideMode == "external") {
+						code = '<div class="slideshow">';
+					} else {
+						code = '<div class="slideshow ' + slideMode + '">';
+					}
+					code = code + '\n\t<div class="slide-left"></div>';
+					code = code + '\n\t<div class="container">';
+					code = code + '\n\t\t<div class="slide-items">';
+					code = code + '\n\t\t\t<div class="slide-item">...</div>';
+					code = code + '\n\t\t\t<div class="slide-item">...</div>';
+					code = code + '\n\t\t\t<div class="slide-item">...</div>';
+					code = code + '\n\t\t\t<div class="slide-item">...</div>';
+					code = code + '\n\t\t</div>';
+					code = code + '\n\t</div>';
+					code = code + '\n\t<div class="slide-right"></div>';
+					code = code + '\n\t<div class="bullets"></div>';
+					code = code + '\n</div>';
+					code = code + '\n\n<script>slide($(".slideshow"), 3000)</script>';
+					
+					var editor = CodeMirror(renderer[0], {
+							value: code,
+							matchbrackets: true
+					});
+					
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);			
+				}
+				
+				function copy(element) {
+					var $temp = $("<textarea>");
+					$("body").append($temp);
+					str = replaceAll(element.text(), '><', '>\n<');
+					$temp.val(str).select();
+					document.execCommand("copy");
+					$temp.remove();
+					element.effect("highlight", {}, 600);
 				}
 				
 				function generateSlideshow() {
@@ -329,16 +400,8 @@ var debug;
 					SlideContainer().appendTo(slideshow);
 					SlideRightButton().appendTo(slideshow);
 					SlideBullets().appendTo(slideshow);
-			
-					for(var i=0; i<jQuery('.slide-items').length; i++) {
-						slideshow = jQuery('.slide-items');
-						items = jQuery(slideshow.children());
-						slideshow.css('width', (items.length) * 100 + '%');
-						for(var j=0; j<items.length; j++){
-							jQuery(items[j]).css('width', (100 / jQuery(".slide-item").length) + '%');
-						}
-					}
 					
+					slide(slideshow, 3000);
 				}
 				
 				return that
@@ -377,7 +440,6 @@ var debug;
 					item.appendTo(items.asJQuery());
 					html.img().setAttribute("src", "./img/slider/s3.jpg").asJQuery().appendTo(item);
 
-					slide(3000, items.asJQuery());
 				}
 				
 				return that
@@ -385,12 +447,9 @@ var debug;
 			
 			function SlideLeftButton() {
 				var that = htmlCanvas.widget();
-				var left;
 
 				that.renderOn = function (html) {
-					left = html.div().addClass("slide-left").asJQuery();
-					span = html.span("<").setAttribute("onclick", "slideLeft(this)").asJQuery();
-					span.appendTo(left);
+					html.div().addClass("slide-left")
 				}
 
 				return that
@@ -398,12 +457,9 @@ var debug;
 			
 			function SlideRightButton() {
 				var that = htmlCanvas.widget();
-				var right;
 
 				that.renderOn = function (html) {
-					right = html.div().addClass("slide-right").asJQuery();
-					span = html.span(">").setAttribute("onclick", "slideRight(this)").asJQuery();
-					span.appendTo(right);
+					html.div().addClass("slide-right")
 				}
 
 				return that
@@ -411,22 +467,9 @@ var debug;
 
 			function SlideBullets() {
 				var that = htmlCanvas.widget();
-				var bullets;
-				var width = 0;
 
 				that.renderOn = function (html) {
-					bullets = html.div().addClass("bullets").asJQuery();
-					items = $(".slide-item");
-					for(i=0; i<items.length; i++) {
-						cssClass = "bullet";
-						if(i==0) {
-							cssClass = cssClass + " current";
-						}
-						bullet = html.div().addClass(cssClass).click(function() {slideFromBullet(this)}).asJQuery();
-						bullet.appendTo(bullets);
-						width = width + new Number(bullet.css("width").split("px")[0]) + new Number(bullet.css("margin-right").split("px")[0]) + 2;
-					}
-					bullets.css("width", width + "px");
+					html.div().addClass("bullets");
 				}
 
 				return that
