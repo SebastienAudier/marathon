@@ -4,6 +4,16 @@ var debug;
 				return str.replace(new RegExp(find, 'g'), replace);
 			}
 			
+			function copy(element) {
+				var $temp = $("<textarea>");
+				$("body").append($temp);
+				str = replaceAll(element.text(), '><', '>\n<');
+				$temp.val(str).select();
+				document.execCommand("copy");
+				$temp.remove();
+				element.effect("highlight", {}, 600);
+			}
+			
 			function updateFromHash (aString) {
 				var hash = "start";
 				if(aString != "") {
@@ -96,16 +106,6 @@ var debug;
 						matchbrackets: true
 					});
 					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
-				}
-				
-				function copy(element) {
-					var $temp = $("<textarea>");
-					$("body").append($temp);
-					str = replaceAll(element.text(), '><', '>\n<');
-					$temp.val(str).select();
-					document.execCommand("copy");
-					$temp.remove();
-					element.effect("highlight", {}, 600);
 				}
 								
 				return that
@@ -281,16 +281,6 @@ var debug;
 					
 					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);			
 				}
-				
-				function copy(element) {
-					var $temp = $("<textarea>");
-					$("body").append($temp);
-					str = replaceAll(element.text(), '><', '>\n<');
-					$temp.val(str).select();
-					document.execCommand("copy");
-					$temp.remove();
-					element.effect("highlight", {}, 600);
-				}
 								
 				return that
 			}
@@ -305,7 +295,7 @@ var debug;
 					html.span('Arrows:').addClass("box").asJQuery().appendTo(boxes);
 					
 					select = html.select().addClass("box").asJQuery();
-					select.change(function (event) {slideMode = event.target.value});
+					select.change(function (event) {slideMode = event.target.value; update()});
 					select.appendTo(boxes);
 
 					html.option('External').setAttribute("value", "external").asJQuery().appendTo(select);
@@ -344,18 +334,20 @@ var debug;
 					input.appendTo(box);
 					box.appendTo(boxes);
 
-
-
-					html.div().addClass("slideshow " + slideMode);
-
-					generateSlideshow();
+					html.div().addClass("slideshow");
 
 					html.div().addClass("break");
 
 					html.h2("How to build it ?");
 
-					renderer = html.div().addClass("renderer large").asJQuery();
-
+					html.div().addClass("renderer large");	
+					
+					update();					
+				}
+				
+				function update() {
+					reset();
+					generateSlideshow();
 					if(slideMode == "external") {
 						code = '<div class="slideshow">';
 					} else {
@@ -375,22 +367,20 @@ var debug;
 					code = code + '\n</div>';
 					code = code + '\n\n<script>slide($(".slideshow"), 3000)</script>';
 					
-					var editor = CodeMirror(renderer[0], {
+					var editor = CodeMirror($(".renderer")[0], {
 							value: code,
 							matchbrackets: true
 					});
-					
-					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);			
+					$(".renderer").append('<span class="copy" onclick="copy($(this).prev().find(\'.CodeMirror-line\'))"></span>')
 				}
-				
-				function copy(element) {
-					var $temp = $("<textarea>");
-					$("body").append($temp);
-					str = replaceAll(element.text(), '><', '>\n<');
-					$temp.val(str).select();
-					document.execCommand("copy");
-					$temp.remove();
-					element.effect("highlight", {}, 600);
+
+				function reset() {
+					$(".slideshow").html("");
+					$(".renderer").html("");
+					$(".slideshow").removeClass("external");
+					$(".slideshow").removeClass("external");
+					$(".slideshow").removeClass("none");
+					$(".slideshow").addClass(slideMode);
 				}
 				
 				function generateSlideshow() {
@@ -494,15 +484,6 @@ var debug;
 						html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
 						html.button(c).addClass(c).asJQuery().appendTo(panel);
 					}
-				}
-				
-				function copy(element) {
-					var $temp = $("<input>");
-					$("body").append($temp);
-					$temp.val(element.text()).select();
-					document.execCommand("copy");
-					$temp.remove();
-					element.effect("highlight", {}, 600);
 				}
 				
 				return that
