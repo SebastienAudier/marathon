@@ -289,6 +289,7 @@ var debug;
 				
 				var that = htmlCanvas.widget();
 				var slideMode = "external";
+				var displayBullet = true;
 			
 				that.renderOn = function(html) {
 					boxes = html.div().addClass('boxes b-4').asJQuery();
@@ -304,7 +305,7 @@ var debug;
 
 					html.span('Display bullets :').addClass("box").asJQuery().appendTo(boxes);
 					select = html.select().addClass("box").asJQuery();
-					select.change(function (event) { /* isAiry = event.target.value != false; generateLayouts() */});
+					select.change(function (event) { displayBullet = (event.target.value == 1); update()});
 					select.appendTo(boxes);
 
 					html.option('yes').setAttribute("value", 1).asJQuery().appendTo(select);
@@ -350,10 +351,11 @@ var debug;
 					generateSlideshow();
 					if(slideMode == "external") {
 						code = '<div class="slideshow">';
+						code = code + '\n\t<div class="slide-left"></div>';
 					} else {
 						code = '<div class="slideshow ' + slideMode + '">';
 					}
-					code = code + '\n\t<div class="slide-left"></div>';
+					
 					code = code + '\n\t<div class="container">';
 					code = code + '\n\t\t<div class="slide-items">';
 					code = code + '\n\t\t\t<div class="slide-item">...</div>';
@@ -361,8 +363,14 @@ var debug;
 					code = code + '\n\t\t\t<div class="slide-item">...</div>';
 					code = code + '\n\t\t\t<div class="slide-item">...</div>';
 					code = code + '\n\t\t</div>';
+					if(slideMode == "internal") {
+						code = code + '\n\t\t<div class="slide-left"></div>';
+						code = code + '\n\t\t<div class="slide-right"></div>';
+					}	
 					code = code + '\n\t</div>';
-					code = code + '\n\t<div class="slide-right"></div>';
+					if(slideMode == "external") {
+						code = code + '\n\t<div class="slide-right"></div>';
+					}
 					code = code + '\n\t<div class="bullets"></div>';
 					code = code + '\n</div>';
 					code = code + '\n\n<script>slide($(".slideshow"), 3000)</script>';
@@ -375,10 +383,10 @@ var debug;
 				}
 
 				function reset() {
-					$(".slideshow").html("");
+					$(".slideshow").replaceWith('<div class="slideshow"></div>');
 					$(".renderer").html("");
 					$(".slideshow").removeClass("external");
-					$(".slideshow").removeClass("external");
+					$(".slideshow").removeClass("internal");
 					$(".slideshow").removeClass("none");
 					$(".slideshow").addClass(slideMode);
 				}
@@ -386,11 +394,20 @@ var debug;
 				function generateSlideshow() {
 					slideshow = $(".slideshow");
 					slideshow.html("");
-					SlideLeftButton().appendTo(slideshow);
-					SlideContainer().appendTo(slideshow);
-					SlideRightButton().appendTo(slideshow);
-					SlideBullets().appendTo(slideshow);
-					
+					if(slideMode == "external") {
+						SlideLeftButton().appendTo(slideshow);
+						SlideContainer().appendTo(slideshow);
+						SlideRightButton().appendTo(slideshow);
+					} else if(slideMode == "none") {
+						SlideContainer().appendTo(slideshow);
+					} else {
+						SlideContainer().appendTo(slideshow);
+						SlideLeftButton().appendTo(slideshow.children().first());
+						SlideRightButton().appendTo(slideshow.children().first());
+					}
+					if(displayBullet) {
+						SlideBullets().appendTo(slideshow);
+					}
 					slide(slideshow, 3000);
 				}
 				
