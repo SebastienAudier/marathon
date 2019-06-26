@@ -92,10 +92,14 @@ function slide (aSlideshow, aTime) {
 	}
 	slider = aSlideshow.children('.slide-container').children().first();
 	items = jQuery(slider.children());
+	items.css("height", aSlideshow.height() + "px");
 	slider.css('width', (items.length) * 100 + '%');
 	bullets = aSlideshow.find('.bullets');
+	for(var i=0; i<items.length; i++){
+		$(items[i]).css('width', (100 / items.length) + '%');
+	}
+	var width = 0;
 	if(bullets.length > 0) {
-		var width = 0;
 		for(var i=0; i<items.length; i++){
 			$(items[i]).css('width', (100 / items.length) + '%');
 			cssClass = "bullet";
@@ -103,22 +107,25 @@ function slide (aSlideshow, aTime) {
 				cssClass = cssClass + " current";
 			}
 			bullets.append('<div class="' + cssClass + '" onclick="slideFromBullet(this)"></div>');
-			width = width + new Number($(".bullet").css("width").split("px")[0]) + new Number($(".bullet").css("margin-right").split("px")[0]) + 2;
+			width = width + $(".bullet").width() + new Number($(".bullet").css("margin-right").split("px")[0]) + 2;
 		}
 		bullets.css("width", width + "px");
 	}
-	if(aTime > 0) {
-		slideAuto(aSlideshow, aTime);
-	}
+	slider.css("transition", "all " + (aTime / items.length) + "ms ease-out");		
+	
+	slideAuto(aSlideshow, aTime);
+	
 }
 
 function slideAuto(aSlideshow, aTime) {
-	setTimeout(function() {
+	if(aTime > 10) {
+		setTimeout(function() {
 			if(!aSlideshow.is(":hover")) {
 				slideRight(aSlideshow)
 			} 
 			slideAuto(aSlideshow, aTime); 
 		}, aTime);
+	}
 }
 
 

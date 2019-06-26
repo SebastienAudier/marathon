@@ -290,6 +290,7 @@ var debug;
 				var that = htmlCanvas.widget();
 				var slideMode = "external";
 				var displayBullet = true;
+				var time = 3000;
 			
 				that.renderOn = function(html) {
 					boxes = html.div().addClass('boxes b-4').asJQuery();
@@ -330,8 +331,8 @@ var debug;
 					
 					html.span('Time for event (ms):').addClass("box").asJQuery().appendTo(boxes);
 					box = html.div().addClass("box").addClass("box").asJQuery();
-					input = html.input().setAttribute("value", "3000").asJQuery();
-					input.keyup(function (event) { /* isAiry = event.target.value != false; generateLayouts() */});
+					input = html.input().setAttribute("value", time).asJQuery();
+					input.keyup(function (e) {if(e.keyCode == 13) {time = new Number(e.target.value); update()}});
 					input.appendTo(box);
 					box.appendTo(boxes);
 
@@ -371,9 +372,11 @@ var debug;
 					if(slideMode == "external") {
 						code = code + '\n\t<div class="slide-right"></div>';
 					}
-					code = code + '\n\t<div class="bullets"></div>';
+					if(displayBullet) {
+						code = code + '\n\t<div class="bullets"></div>';
+					}
 					code = code + '\n</div>';
-					code = code + '\n\n<script>slide($(".slideshow"), 3000)</script>';
+					code = code + '\n\n<script>slide($(".slideshow"), ' + time + ')</script>';
 					
 					var editor = CodeMirror($(".renderer")[0], {
 							value: code,
@@ -408,7 +411,7 @@ var debug;
 					if(displayBullet) {
 						SlideBullets().appendTo(slideshow);
 					}
-					slide(slideshow, 3000);
+					slide(slideshow, time);
 				}
 				
 				return that

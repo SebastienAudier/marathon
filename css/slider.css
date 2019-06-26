@@ -2,6 +2,7 @@
 .slideshow {
 	float: left;
 	width: 100%;
+	min-height: 200px;
 }
 
 .slide-container {
@@ -17,8 +18,7 @@
 }
 
 .slide-items {
-	float: left;	
-	transition: all 1s ease-out;
+	float: left;
 }
 
 .slide-item {
@@ -81,9 +81,6 @@
     padding-left: 10px;
     padding-right: 10px;
 	cursor: pointer;
-}
-
-.slide-left span {
 	float: left;
 }
 
