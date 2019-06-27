@@ -23,6 +23,7 @@ function slideRight(anElement) {
 	}
 	$(slides[index]).addClass("current");
 	if(bullets.length > 0) {
+		bullets.removeClass("current");
 		$(bullets[index]).addClass("current");
 	}
 	for (var i=0; i<slides.length; i++) {
@@ -52,6 +53,7 @@ function slideLeft(anElement) {
 	}
 	$(slides[index]).addClass("current");
 	if(bullets.length > 0) {
+		bullets.removeClass("current");
 		$(bullets[index]).addClass("current");
 	}
 	for (var i=0; i<slides.length; i++) {
@@ -75,7 +77,7 @@ function slideFromBullet(anElement) {
 		$(items[i]).removeClass("current");
 	}
 	$(anElement).addClass("current");
-	
+	$(items[index]).addClass("current");
 	
 	for (var i=0; i<bullets.length; i++) {
 		if(index == i) {
