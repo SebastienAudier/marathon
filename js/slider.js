@@ -64,20 +64,24 @@ function slideLeft(anElement) {
 function slideFromBullet(anElement) {
 	var index;
 	slideshow = $(anElement).parents('.slideshow');
+	slider = slideshow.children().find('.slide-items').first();
 	var bullets = $(anElement).parents('.bullets').children();
+	var items = slider.children();
 	for(var i=0; i<bullets.length; i++) {
 		if($(bullets[i]).is($(anElement))) {
 			index = i;
 		}
 		$(bullets[i]).removeClass("current");
-	}		
-	slider = slideshow.children().find('.slide-items').first();
+		$(items[i]).removeClass("current");
+	}
+	$(anElement).addClass("current");
+	
+	
 	for (var i=0; i<bullets.length; i++) {
 		if(index == i) {
 			slider.css('margin-left', (i * -100) + "%");
 		}
 	}
-	$(anElement).addClass("current");
 }
 		
 function slide (aSlideshow, aTime) {

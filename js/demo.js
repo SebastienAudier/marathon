@@ -291,6 +291,7 @@ var debug;
 				var slideMode = "external";
 				var displayBullet = true;
 				var time = 3000;
+				var count = 4;
 			
 				that.renderOn = function(html) {
 					boxes = html.div().addClass('boxes b-4').asJQuery();
@@ -316,7 +317,7 @@ var debug;
 
 					html.span('Number of slides :').addClass("box").asJQuery().appendTo(boxes);
 					select = html.select().addClass("box").asJQuery();
-					select.change(function (event) {/*count = event.target.value; generateLayouts()*/});
+					select.change(function (event) {count = event.target.value; update()});
 					select.appendTo(boxes);
 
 					var i = 1;
@@ -340,11 +341,43 @@ var debug;
 
 					html.div().addClass("break");
 
-					html.h2("How to build it ?");
+					div = html.div().addClass("panel").asJQuery();
 
-					html.div().addClass("renderer large");	
+					html.h2("How to build it ?").asJQuery().appendTo(div);
+
+					html.div().addClass("renderer large").asJQuery().appendTo(div);	
 					
 					update();					
+					
+					html.h2("How to load it alone ?").asJQuery().appendTo(div);
+					
+					html.h3("External libraries").asJQuery().appendTo(div);
+					
+					renderer = html.div().addClass("renderer small").asJQuery();
+					renderer.appendTo(div);
+					
+					var code ='<script type="text/javascript" src="./src/js/external/jquery-2.1.4.min.js"><\/script>\n<script type="text/javascript" src="./src/js/external/htmlCanvas.min.js"><\/script>';
+					
+					var editor = CodeMirror(renderer[0], {
+							value: code,
+							matchbrackets: true
+					});
+					
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
+
+					html.h3("Internal libraries").asJQuery().appendTo(div);
+					
+					renderer = html.div().addClass("renderer small").asJQuery();
+					renderer.appendTo(div);
+					
+					var code ='<script type="text/javascript" src="./src/js/slider.min.js"><\/script>\n<link rel="sylesheet" href="./src/css/slider.min.css">';
+					
+					var editor = CodeMirror(renderer[0], {
+							value: code,
+							matchbrackets: true
+					});
+					
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);	
 				}
 				
 				function update() {
@@ -359,10 +392,9 @@ var debug;
 					
 					code = code + '\n\t<div class="container">';
 					code = code + '\n\t\t<div class="slide-items">';
-					code = code + '\n\t\t\t<div class="slide-item">...</div>';
-					code = code + '\n\t\t\t<div class="slide-item">...</div>';
-					code = code + '\n\t\t\t<div class="slide-item">...</div>';
-					code = code + '\n\t\t\t<div class="slide-item">...</div>';
+					for(var i=0; i<count; i++) {
+						code = code + '\n\t\t\t<div class="slide-item">...</div>';
+					}
 					code = code + '\n\t\t</div>';
 					if(slideMode == "internal") {
 						code = code + '\n\t\t<div class="slide-left"></div>';
@@ -376,18 +408,18 @@ var debug;
 						code = code + '\n\t<div class="bullets"></div>';
 					}
 					code = code + '\n</div>';
-					code = code + '\n\n<script>slide($(".slideshow"), ' + time + ')</script>';
+					code = code + '\n<script>slide($(".slideshow"), ' + time + ')</script>';
 					
 					var editor = CodeMirror($(".renderer")[0], {
 							value: code,
 							matchbrackets: true
 					});
-					$(".renderer").append('<span class="copy" onclick="copy($(this).prev().find(\'.CodeMirror-line\'))"></span>')
+					$(".renderer.large").append('<span class="copy" onclick="copy($(this).prev().find(\'.CodeMirror-line\'))"></span>')
 				}
 
 				function reset() {
 					$(".slideshow").replaceWith('<div class="slideshow"></div>');
-					$(".renderer").html("");
+					$(".renderer.large").html("");
 					$(".slideshow").removeClass("external");
 					$(".slideshow").removeClass("internal");
 					$(".slideshow").removeClass("none");
@@ -399,12 +431,12 @@ var debug;
 					slideshow.html("");
 					if(slideMode == "external") {
 						SlideLeftButton().appendTo(slideshow);
-						SlideContainer().appendTo(slideshow);
+						SlideContainer(count).appendTo(slideshow);
 						SlideRightButton().appendTo(slideshow);
 					} else if(slideMode == "none") {
-						SlideContainer().appendTo(slideshow);
+						SlideContainer(count).appendTo(slideshow);
 					} else {
-						SlideContainer().appendTo(slideshow);
+						SlideContainer(count).appendTo(slideshow);
 						SlideLeftButton().appendTo(slideshow.children().first());
 						SlideRightButton().appendTo(slideshow.children().first());
 					}
@@ -417,39 +449,55 @@ var debug;
 				return that
 			}
 			
-			function SlideContainer() {
+			function SlideContainer(anInteger) {
 				var that = htmlCanvas.widget();
 				var container;
 
 				that.renderOn = function (html) {
 					container = html.div().addClass("slide-container");
-					SlideItems().appendTo(container.asJQuery());
+					SlideItems(anInteger).appendTo(container.asJQuery());
 				}
 				
 				return that
 			}
 
-			function SlideItems() {
+			function SlideItems(anInteger) {
 				var that = htmlCanvas.widget();
 				var items;
 
 				that.renderOn = function (html) {
 					items = html.div().addClass("slide-items");
-					item = html.div().addClass("slide-item").asJQuery();
-					html.img().setAttribute("src", "./img/slider/s1.jpg").asJQuery().appendTo(item);
-					item.appendTo(items.asJQuery());
-					item = html.div().addClass("slide-item").asJQuery();
-					item.appendTo(items.asJQuery());
-					html.img().addClass("picture").setAttribute("src", "./img/picture.png").asJQuery().appendTo(item);
-					html.h2("Example html content").asJQuery().appendTo(item);
-					html.span("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(item);
-					item = html.div().addClass("slide-item").asJQuery();
-					item.appendTo(items.asJQuery());
-					html.img().setAttribute("src", "./img/slider/s2.jpg").asJQuery().appendTo(item);
-					item = html.div().addClass("slide-item").asJQuery();
-					item.appendTo(items.asJQuery());
-					html.img().setAttribute("src", "./img/slider/s3.jpg").asJQuery().appendTo(item);
-
+					if(anInteger>0) {
+						item = html.div().addClass("slide-item").asJQuery();
+						html.img().setAttribute("src", "./img/slider/s1.jpg").asJQuery().appendTo(item);
+						item.appendTo(items.asJQuery());
+					}
+					if(anInteger>1) {
+						item = html.div().addClass("slide-item").asJQuery();
+						html.img().addClass("picture").setAttribute("src", "./img/picture.png").asJQuery().appendTo(item);
+						html.h2("Example html content").asJQuery().appendTo(item);
+						html.span("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(item);
+						item.appendTo(items.asJQuery());
+					}
+					if(anInteger>2) {
+						item = html.div().addClass("slide-item").asJQuery();
+						html.img().setAttribute("src", "./img/slider/s2.jpg").asJQuery().appendTo(item);
+						item.appendTo(items.asJQuery());
+					}
+					if(anInteger>3) {	
+						item = html.div().addClass("slide-item").asJQuery();
+						item.appendTo(items.asJQuery());
+						html.img().setAttribute("src", "./img/slider/s3.jpg").asJQuery().appendTo(item);
+					}
+					if(anInteger>4) {
+						for(var i=4; i<anInteger; i++) {
+							item = html.div().addClass("slide-item").asJQuery();
+							html.img().addClass("picture").setAttribute("src", "./img/picture.png").asJQuery().appendTo(item);
+							html.h2("Example html content").asJQuery().appendTo(item);
+							html.span("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(item);
+							item.appendTo(items.asJQuery());
+						}
+					}
 				}
 				
 				return that
