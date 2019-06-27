@@ -38,7 +38,7 @@ function slideLeft(anElement) {
 	slides = slideshow.children().find('.slide-items').children();
 	index = 0;
 	for (var i=0; i<slides.length; i++) {
-		if($(slides[i]).is(".current")) {
+		if($(slides[i]).hasClass(".current")) {
 			$(slides[i]).removeClass("current");
 			if(bullets.length > 0) {
 				$(bullets[i]).removeClass("current");
@@ -85,10 +85,24 @@ function slide (aSlideshow, aTime) {
 	left = aSlideshow.find('.slide-left');
 	if(left) {
 		left.append('<span onclick="slideLeft(this)"><</span>');
+		span = left.children().first();
+		height = (aSlideshow.height() / 2) - (span.height() / 2);
+		if(aSlideshow.hasClass("internal")) {
+			span.css("margin-top", (height - aSlideshow.height()) + "px");	
+		} else {
+			span.css("margin-top", height + "px");	
+		}
 	}
 	right = aSlideshow.find('.slide-right');
 	if(right) {
 		right.append('<span onclick="slideRight(this)">></span>');
+		span = right.children().first();
+		height = (aSlideshow.height() / 2) - (span.height() / 2);
+		if(aSlideshow.hasClass("internal")) {
+			span.css("margin-top", (height - aSlideshow.height()) + "px");	
+		} else {
+			span.css("margin-top", height + "px");	
+		}
 	}
 	slider = aSlideshow.children('.slide-container').children().first();
 	items = jQuery(slider.children());

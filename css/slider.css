@@ -55,7 +55,6 @@
 .internal .slide-left,
 .internal .slide-right {
 	position: relative;
-	margin-top: -350px;
 }
 
 .internal .slide-left {
@@ -68,7 +67,7 @@
 
 .slide-left span,
 .slide-right span {
-	margin-top: 150px;
+	margin-top: 85px;
     background: #0088CC;
     color: #fff;
 	font-family: helvetica;
