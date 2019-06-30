@@ -351,27 +351,13 @@ var debug;
 					
 					html.h2("How to load it alone ?").asJQuery().appendTo(div);
 					
-					html.h3("External libraries").asJQuery().appendTo(div);
-					
-					renderer = html.div().addClass("renderer small").asJQuery();
-					renderer.appendTo(div);
-					
-					var code ='<script type="text/javascript" src="./src/js/external/jquery-2.1.4.min.js"><\/script>\n<script type="text/javascript" src="./src/js/external/htmlCanvas.min.js"><\/script>';
-					
-					var editor = CodeMirror(renderer[0], {
-							value: code,
-							matchbrackets: true
-					});
-					
-					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
+					ExternalLibraries().appendTo(div);
 
 					html.h3("Internal libraries").asJQuery().appendTo(div);
 					
 					renderer = html.div().addClass("renderer small").asJQuery();
 					renderer.appendTo(div);
-					
 					var code ='<script type="text/javascript" src="./src/js/slider.min.js"><\/script>\n<link rel="sylesheet" href="./src/css/slider.min.css">';
-					
 					var editor = CodeMirror(renderer[0], {
 							value: code,
 							matchbrackets: true
@@ -533,6 +519,24 @@ var debug;
 				return that
 			}
 			
+			
+			function ExternalLibraries() {
+				var that = htmlCanvas.widget();
+				
+				that.renderOn = function (html) {
+					html.h3("External libraries");
+					renderer = html.div().addClass("renderer small").asJQuery();
+					var code ='<script type="text/javascript" src="./src/js/external/jquery-2.1.4.min.js"><\/script>\n<script type="text/javascript" src="./src/js/external/htmlCanvas.min.js"><\/script>';
+					var editor = CodeMirror(renderer[0], {
+							value: code,
+							matchbrackets: true
+					});
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
+				}
+				
+				return that
+			}
+			
 			function Buttons () {
 				
 				var that = htmlCanvas.widget();
@@ -552,6 +556,10 @@ var debug;
 						html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
 						html.button(c).addClass(c).asJQuery().appendTo(panel);
 					}
+					
+					panel = html.div().addClass("panel").asJQuery();
+					html.h2("How to load it alone ?").asJQuery().appendTo(panel);
+					
 				}
 				
 				return that
@@ -561,7 +569,7 @@ var debug;
 			
 				var that = htmlCanvas.widget();
 				var isAiry = false;
-				var count = 1;
+				var count = 6;
 
 				that.renderOn = function(html) {
 					boxes = html.div().addClass('boxes b-4').asJQuery();
@@ -573,7 +581,11 @@ var debug;
 
 					var i = 1;
 					while(i<13) {
-						html.option(i.toString()).setAttribute("value", i).asJQuery().appendTo(select);
+						option = html.option(i.toString()).setAttribute("value", i);
+						if(i==count) {
+							option.setAttribute("selected", "selected")
+						}
+						option.asJQuery().appendTo(select);						
 						i++
 					}
 
@@ -589,7 +601,10 @@ var debug;
 					
 					html.div().addClass("renderer");
 					
-					generateLayouts(1);
+					generateLayouts();
+					
+					panel = html.div().addClass("panel").asJQuery();
+					html.h2("How to load it alone ?").asJQuery().appendTo(panel);
 					
 				}
 				
