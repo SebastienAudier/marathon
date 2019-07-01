@@ -152,6 +152,7 @@ input {
 .renderer .CodeMirror {
 	width: 80%;
 	float: left;
+	height: 220px;
 }
 
 .renderer.extra .CodeMirror {

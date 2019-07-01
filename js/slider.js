@@ -111,10 +111,10 @@ function slide (aSlideshow, aTime) {
 		}
 	}
 	slider = aSlideshow.children('.slide-container').children().first();
-	items = jQuery(slider.children());
-	items.css("height", aSlideshow.height() + "px");
-	slider.css('width', (items.length) * 100 + '%');
 	bullets = aSlideshow.find('.bullets');
+	items = jQuery(slider.children());
+	items.css("height", (aSlideshow.height() - bullets.height()) + "px");
+	slider.css('width', (items.length) * 100 + '%');
 	for(var i=0; i<items.length; i++){
 		$(items[i]).css('width', (100 / items.length) + '%');
 	}
@@ -129,10 +129,13 @@ function slide (aSlideshow, aTime) {
 			bullets.append('<div class="' + cssClass + '" onclick="slideFromBullet(this)"></div>');
 			width = width + $(".bullet").width() + new Number($(".bullet").css("margin-right").split("px")[0]) + 2;
 		}
-		bullets.css("width", width + "px");
+		paddingLeft = ((100 - ((width * 100) / bullets.width())) / 2);
+		bullets.css("padding-left", paddingLeft + "%");
+		bullets.css("width", (100 - paddingLeft) + "%");
 	}
+	console.log((aSlideshow.height() - bullets.height()));
+	slider.css("height", (aSlideshow.height() - bullets.height()) + "px");
 	slider.css("transition", "all " + (aTime / items.length) + "ms ease-out");		
-	
 	slideAuto(aSlideshow, aTime);
 	
 }

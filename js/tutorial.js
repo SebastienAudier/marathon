@@ -150,10 +150,25 @@ function CommentContainer (commentedElement, margin) {
 		if(medias.length > 0) {
 			screenshots = html.div().addClass("screenshots").asJQuery();
 			screenshots.appendTo(container);
-			if(medias.length == 1) {
+			if(medias.length == 1) {	
 				screenshots.append(medias[0]);
 			} else {
-				// sliders
+				container.addClass("medias");
+				slideshow = html.div().addClass("slideshow internal").asJQuery();
+				slideshow.appendTo(screenshots);
+				slideContainer = html.div().addClass("slide-container").asJQuery();
+				slideContainer.appendTo(slideshow);
+				slideItems = html.div().addClass("slide-items").asJQuery();
+				slideItems.appendTo(slideContainer);
+				for(each in medias) {
+					item = html.div().addClass("slide-item").asJQuery();
+					item.append(medias[each]);
+					item.appendTo(slideItems);
+				}
+				html.div().addClass("slide-left").asJQuery().appendTo(slideContainer);
+				html.div().addClass("slide-right").asJQuery().appendTo(slideContainer);
+				html.div().addClass("bullets").asJQuery().appendTo(slideshow);
+				slide(slideshow, 3000)
 			}
 		} 
 		

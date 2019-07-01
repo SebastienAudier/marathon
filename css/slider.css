@@ -93,8 +93,9 @@
 }
 
 .bullets {
-	height: 20px;
     margin: 0px auto;
+	float: left;
+	width: 100%;
 }
 
 .bullet {

@@ -202,9 +202,14 @@ var debug;
 					html.hr().asJQuery().appendTo(div);
 					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
 					comment = html.div().addClass("mr-comment").asJQuery();
-					html.span("This is the last comment of the page...").asJQuery().appendTo(comment);
-					comment.appendTo(div);
-					html.span("This is a first comment on this element...").asJQuery().appendTo(comment);
+					html.img().setAttribute("src", "./img/slider/s1.jpg").asJQuery().appendTo(comment);
+					html.img().setAttribute("src", "./img/slider/s2.jpg").asJQuery().appendTo(comment);
+					html.img().setAttribute("src", "./img/slider/s3.jpg").asJQuery().appendTo(comment);
+					html.h2("This is an h2 element...").asJQuery().appendTo(comment);
+					html.span("This is the first comment on this element...").asJQuery().appendTo(comment);
+					html.h3("This is an h3 element...").asJQuery().appendTo(comment);
+					html.span("This is an other comment on this element...").asJQuery().appendTo(comment);
+					html.span("This is the last comment on this element...").asJQuery().appendTo(comment);
 					comment.appendTo(div);
 					
 					code = replaceAll($(".panel.tutorial").html(), "</h1>", "</h1>\n");
@@ -560,6 +565,18 @@ var debug;
 					panel = html.div().addClass("panel").asJQuery();
 					html.h2("How to load it alone ?").asJQuery().appendTo(panel);
 					
+					html.h3("Internal libraries").asJQuery().appendTo(panel);
+					
+					renderer = html.div().addClass("renderer small").asJQuery();
+					renderer.appendTo(panel);
+					var code ='<link rel="sylesheet" href="./src/css/button.min.css">';
+					var editor = CodeMirror(renderer[0], {
+							value: code,
+							matchbrackets: true
+					});
+					
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);	
+					
 				}
 				
 				return that
@@ -605,6 +622,18 @@ var debug;
 					
 					panel = html.div().addClass("panel").asJQuery();
 					html.h2("How to load it alone ?").asJQuery().appendTo(panel);
+					
+					html.h3("Internal libraries").asJQuery().appendTo(panel);
+					
+					renderer = html.div().addClass("renderer small").asJQuery();
+					renderer.appendTo(panel);
+					var code ='<script type="text/javascript" src="./src/js/external/layout.min.js"><\/script>';
+					var editor = CodeMirror(renderer[0], {
+							value: code,
+							matchbrackets: true
+					});
+					
+					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);
 					
 				}
 				

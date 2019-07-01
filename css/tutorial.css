@@ -23,6 +23,10 @@
 	overflow: hidden;
 }
 
+.mr-comment-container.medias .screenshots {
+   width: 40%;
+}
+
 .mr-comment-container img {
 	margin: auto;
 	width: 100%;
@@ -41,6 +45,10 @@
 	font-family: helvetica;
 	font-weight: bold;
 	overflow-y: auto;
+}
+
+.mr-comment-container.medias .comments {
+		width: 50%;
 }
 
 .mr-comment-container .comments h4 {
