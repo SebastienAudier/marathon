@@ -27,6 +27,14 @@
    width: 40%;
 }
 
+.mr-comment-container.medias .screenshots.extra {
+	width: 100%;
+}
+
+.mr-comment-container.medias .screenshots.extra .slideshow {
+	width: 96%
+}
+
 .mr-comment-container img {
 	margin: auto;
 	width: 100%;

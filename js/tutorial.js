@@ -154,8 +154,15 @@ function CommentContainer (commentedElement, margin) {
 				screenshots.append(medias[0]);
 			} else {
 				container.addClass("medias");
-				slideshow = html.div().addClass("slideshow internal").asJQuery();
+				slideshow = html.div().addClass("slideshow").asJQuery();
+				if(comments.length > 0) {
+					slideshow.addClass("internal");
+				}
 				slideshow.appendTo(screenshots);
+				slideshow.height((container.height() - 30) + "px");
+				if(comments.length == 0) {
+					html.div().addClass("slide-left").asJQuery().appendTo(slideshow);
+				}
 				slideContainer = html.div().addClass("slide-container").asJQuery();
 				slideContainer.appendTo(slideshow);
 				slideItems = html.div().addClass("slide-items").asJQuery();
@@ -165,10 +172,18 @@ function CommentContainer (commentedElement, margin) {
 					item.append(medias[each]);
 					item.appendTo(slideItems);
 				}
-				html.div().addClass("slide-left").asJQuery().appendTo(slideContainer);
-				html.div().addClass("slide-right").asJQuery().appendTo(slideContainer);
+				if(comments.length == 0) {
+					html.div().addClass("slide-right").asJQuery().appendTo(slideshow);		
+				} else {
+					html.div().addClass("slide-left").asJQuery().appendTo(slideContainer);
+					html.div().addClass("slide-right").asJQuery().appendTo(slideContainer);
+				}
 				html.div().addClass("bullets").asJQuery().appendTo(slideshow);
 				slide(slideshow, 3000)
+			}
+			
+			if(comments.length == 0) {
+				screenshots.addClass("extra");
 			}
 		} 
 		

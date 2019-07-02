@@ -181,13 +181,14 @@ var debug;
 					
 				var that = htmlCanvas.widget();
 				var yellow = "#fff592";
+				var loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ";
 				
 				that.renderOn = function(html) {
 					div = html.div().addClass("panel tutorial").asJQuery();
 					html.h2("Example").asJQuery().appendTo(div);
-					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
+					html.p(loremIpsum).asJQuery().appendTo(div);
 					html.hr().asJQuery().appendTo(div);
-					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
+					html.p(loremIpsum).asJQuery().appendTo(div);
 					comment = html.div().addClass("mr-comment").asJQuery();
 					html.img().setAttribute("src", "./img/picture.png").asJQuery().appendTo(comment);
 					html.h2("This is an h2 element...").asJQuery().appendTo(comment);
@@ -195,12 +196,12 @@ var debug;
 					html.h3("This is an h3 element...").asJQuery().appendTo(comment);
 					html.span("This is the last comment on this element...").asJQuery().appendTo(comment);
 					comment.appendTo(div);
-					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
+					html.p(loremIpsum).asJQuery().appendTo(div);
 					comment = html.div().addClass("mr-comment").asJQuery();
-					html.span("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(comment);
+					html.span(loremIpsum).asJQuery().appendTo(comment);
 					comment.appendTo(div);
 					html.hr().asJQuery().appendTo(div);
-					html.p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.").asJQuery().appendTo(div);
+					html.p(loremIpsum).asJQuery().appendTo(div);
 					comment = html.div().addClass("mr-comment").asJQuery();
 					html.img().setAttribute("src", "./img/slider/s1.jpg").asJQuery().appendTo(comment);
 					html.img().setAttribute("src", "./img/slider/s2.jpg").asJQuery().appendTo(comment);
@@ -210,6 +211,13 @@ var debug;
 					html.h3("This is an h3 element...").asJQuery().appendTo(comment);
 					html.span("This is an other comment on this element...").asJQuery().appendTo(comment);
 					html.span("This is the last comment on this element...").asJQuery().appendTo(comment);
+					comment.appendTo(div);
+					
+					html.p(loremIpsum + loremIpsum + loremIpsum + loremIpsum + loremIpsum + loremIpsum + loremIpsum).asJQuery().appendTo(div);
+					comment = html.div().addClass("mr-comment").asJQuery();
+					html.img().setAttribute("src", "./img/slider/s1.jpg").asJQuery().appendTo(comment);
+					html.img().setAttribute("src", "./img/slider/s2.jpg").asJQuery().appendTo(comment);
+					html.img().setAttribute("src", "./img/slider/s3.jpg").asJQuery().appendTo(comment);
 					comment.appendTo(div);
 					
 					code = replaceAll($(".panel.tutorial").html(), "</h1>", "</h1>\n");
