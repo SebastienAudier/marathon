@@ -18,21 +18,26 @@
 
 .mr-comment-container .screenshots {
 	float: left;
-    width: 20%;
+	padding-left: 2%;
+	padding-right: 2%;
+    width: 40%;
     height: 100%;
 	overflow: hidden;
 }
 
 .mr-comment-container.medias .screenshots {
-   width: 40%;
+   width: 46%;
 }
 
-.mr-comment-container.medias .screenshots.extra {
+.mr-comment-container.medias .screenshots.extra,
+.mr-comment-container .screenshots.extra {
 	width: 100%;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .mr-comment-container.medias .screenshots.extra .slideshow {
-	width: 96%
+	width: 96%;
 }
 
 .mr-comment-container img {
@@ -47,7 +52,7 @@
 	padding: 5%;
 	padding-top: 40px;
 	padding-bottom: 20px;
-	width: 70%;
+	width: 46%;
 	float: left;
 	font-size: 14px;
 	font-family: helvetica;
@@ -56,7 +61,7 @@
 }
 
 .mr-comment-container.medias .comments {
-		width: 50%;
+	width: 50%;
 }
 
 .mr-comment-container .comments h4 {
@@ -74,6 +79,16 @@
 .mr-comment-container .comments > * {
 	float: left;
 	width: 100%;
+}
+
+.mr-comment-container .comments ul {
+	list-style: none
+}
+
+.mr-comment-container .comments ul li::before {
+	content: "•"; color: #FFFFFF;
+	display: inline-block; width: 1em;
+	margin-left: -1em
 }
 
 .mr-arrow { 
