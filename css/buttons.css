@@ -1,6 +1,5 @@
 button,
-input,
-select {
+input {
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	border-radius:3px;
@@ -19,7 +18,7 @@ button:active {
 	top:1px;
 }
 
-input, select {
+input {
 	border: 1px solid #0088aa;
 	background: #fff;
 	height: 30px;
@@ -35,8 +34,7 @@ input {
     padding-right: 0px;
 }
 
-input:active,
-select:active {
+input:active {
 	box-shadow: 0px 0px 2px #0088dd;
 }
 

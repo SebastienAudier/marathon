@@ -133,7 +133,6 @@ function slide (aSlideshow, aTime) {
 		bullets.css("padding-left", paddingLeft + "%");
 		bullets.css("width", (100 - paddingLeft) + "%");
 	}
-	console.log((aSlideshow.height() - bullets.height()));
 	slider.css("height", (aSlideshow.height() - bullets.height()) + "px");
 	slider.css("transition", "all " + (aTime / items.length) + "ms ease-out");		
 	slideAuto(aSlideshow, aTime);

@@ -1,0 +1,23 @@
+
+select {
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Arial;
+	font-size:13px;
+	font-weight: bold;
+	text-decoration:none;
+	line-height: 1.5em;
+	border: 1px solid #0088aa;
+	background: #fff;
+	height: 30px;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+select:active {
+	box-shadow: 0px 0px 2px #0088dd;
+}

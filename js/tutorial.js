@@ -1,6 +1,24 @@
 
 function openTutorial () {
-	TutorialSlider($(".mr-comment")).appendTo($("html"));
+	TutorialSlider($(".mr-comment").sort(order)).appendTo($("html"));
+}
+
+function order(a,b) {
+	if (getOrder(a) >= getOrder(b)) {
+		return 1
+	} else {
+		return -1
+	}
+	return 0;
+	
+}
+
+function getOrder(e) {
+	if(!$(e).attr("order")) {
+		return 0;
+	} else {
+		return $(e).attr("order");
+	}
 }
 
 function TutorialSlider(commentedElements) {

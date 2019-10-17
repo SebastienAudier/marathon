@@ -26,6 +26,8 @@ var debug;
 					StartPage().appendTo($("#container"));
 				} else if(hash == "buttons") {
 					Buttons().appendTo($("#container"));
+				} else if(hash == "select") {
+					Select().appendTo($("#container"));
 				} else if(hash == "layouts") {
 					Layouts().appendTo($("#container"));
 				} else if(hash == "tutorial") {
@@ -149,6 +151,7 @@ var debug;
 				
 				that.renderOn = function(html) {
 					html.span("Buttons").addClass("page buttons").click(function(){window.location.hash = "buttons"});
+					html.span("Select").addClass("page select").click(function(){window.location.hash = "select"});
 					html.span("Layouts").addClass("page layouts").click(function(){window.location.hash = "layouts"})
 				}
 			
@@ -585,6 +588,19 @@ var debug;
 					
 					html.span().addClass("copy").click(function () {copy($(this).prev().find(".CodeMirror-line"))}).asJQuery().appendTo(renderer);	
 					
+				}
+				
+				return that
+			}
+			
+			function Select () {
+				
+				var that = htmlCanvas.widget();
+
+				
+				that.renderOn = function(html) {
+					html.div().addClass("panel");
+						
 				}
 				
 				return that
