@@ -32,6 +32,7 @@ function TutorialSlider(commentedElements) {
 		html.span("<").addClass("mr-arrow left").click(function () {showPrevious()});		
 		html.span(">").addClass("mr-arrow right").click(function () {showNext()});
 		html.span("x").addClass("mr-remove").click(function() {closeTutorial()});
+		html.span().addClass("mr-edit").click(function () {editTutorial()});
 	}
 	
 	function updateUI() {
@@ -75,9 +76,24 @@ function TutorialSlider(commentedElements) {
 		$('body').css({'overflow':'visible'});
 	}
 	
+	function editTutorial () {
+		$(".mr-arrow").remove();
+		$(".mr-edit").remove();
+		removeContent();
+		$(document).unbind('scroll'); 
+		$('body').css({'overflow':'visible'});
+		$('body').selectable({
+			tolerance: "fit",
+			stop: function( event, ui ) {
+				$(".ui-selected").css("background", "red");
+			}
+		})
+	}
+	
 	function removeButtons() {
 		$(".mr-arrow").remove();
 		$(".mr-remove").remove();
+		$(".mr-edit").remove();
 	}
 	
 	function removeContent() {

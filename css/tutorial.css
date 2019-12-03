@@ -61,7 +61,7 @@
 }
 
 .mr-comment-container.medias .comments {
-	width: 50%;
+	width: 40%;
 }
 
 .mr-comment-container .comments h4 {
@@ -114,7 +114,6 @@
 	right: 1%;
 	cursor: pointer; 
 	font-size: 44px; 
-	background: #000; 
 	padding-left: 14px; 
 	padding-right: 14px; 
 	border-radius: 24px; 
@@ -127,12 +126,35 @@
 	background: #be0000;
 }
 
+.mr-edit {
+	position: fixed; 
+	top: 14%; 
+	right: 1%;
+	cursor: pointer;  
+	padding-left: 14px; 
+	padding-right: 14px; 
+	border-radius: 24px; 
+	color: #fff; 
+	font-weight: bold; 
+	z-index: 1000000;
+    line-height: 1em;
+	background: #4bd74c url("./../img/edit.png") no-repeat center center;
+	background-size: 33px;
+	width: 25px;
+	height: 50px;
+}
+
 .mr-arrow:hover {
 	background: #0088EE
 }
 
 .mr-remove:hover {
 	background: red;
+}
+
+.mr-edit:hover {
+	background: #95ec96 url("./../img/edit.png") no-repeat center center;
+	background-size: 33px;
 }
 
 .mr-arrow.left{
