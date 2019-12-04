@@ -32,7 +32,8 @@ function TutorialSlider(commentedElements) {
 		html.span("<").addClass("mr-arrow left").click(function () {showPrevious()});		
 		html.span(">").addClass("mr-arrow right").click(function () {showNext()});
 		html.span("x").addClass("mr-remove").click(function() {closeTutorial()});
-		html.span().addClass("mr-edit").click(function () {editTutorial()});
+		html.span().addClass("mr-edit").click(function () {});
+		html.span().addClass("mr-new-comment").click(function () {newComment()});
 	}
 	
 	function updateUI() {
@@ -76,16 +77,39 @@ function TutorialSlider(commentedElements) {
 		$('body').css({'overflow':'visible'});
 	}
 	
-	function editTutorial () {
+	function newComment () {
 		$(".mr-arrow").remove();
 		$(".mr-edit").remove();
+		$(".mr-new-comment").remove();
 		removeContent();
 		$(document).unbind('scroll'); 
 		$('body').css({'overflow':'visible'});
+		SelectInfo().appendTo($("html"));
 		$('body').selectable({
 			tolerance: "fit",
 			stop: function( event, ui ) {
-				$(".ui-selected").css("background", "red");
+				area = 0;
+				index = 0;
+				for(var i=0; i<$(".ui-selected").length; i++) {
+					currentArea = calculateArea($($(".ui-selected")[i]));
+					if(currentArea > area) {
+						area = currentArea;
+						index = i;
+					}
+				}
+				
+				current = $($(".ui-selected")[index]);
+				$('body').css({'overflow':'hidden'});
+				window.scrollTo(0, 0);
+
+				if($(window).height() < (current.prev().offset().top + current.prev().height())) {
+					window.scrollTo(0, current.prev().offset().top);
+				} 
+		
+				HiddingBoxes(current, margin).appendTo($("html"));
+				CommentContainer(current, margin).appendTo($("html"));
+				
+				//$(".ui-selected").removeClass("ui-selected");
 			}
 		})
 	}
@@ -103,6 +127,17 @@ function TutorialSlider(commentedElements) {
 	
 	return that
 	
+}
+
+function SelectInfo() {
+	var that = htmlCanvas.widget();
+	
+	that.renderOn = function(html) {
+		div = html.div().addClass("mr-edit-help").asJQuery();
+		html.h2("Select a component with mouse...").asJQuery().appendTo(div)
+	}
+	
+	return that
 }
 
 function HiddingBoxes (commentedElement, margin) {
@@ -234,7 +269,8 @@ function CommentContainer (commentedElement, margin) {
 		div = $($(".mr-hidding")[0]);
 		var area = 0;
 		for(var i=0; i<$(".mr-hidding").length; i++) {
-			currentArea = (new Number($($(".mr-hidding")[i]).css("width").split("px")[0]) * new Number($($(".mr-hidding")[i]).css("height").split("px")[0]));
+			element = $($(".mr-hidding")[i]);
+			currentArea = calculateArea(element);
 			if(currentArea >= area) {
 				area = currentArea;
 				div = $($(".mr-hidding")[i]);
@@ -244,6 +280,10 @@ function CommentContainer (commentedElement, margin) {
 	}
 	
 	return that
+}
+
+function calculateArea(aJQueryElement) {
+	return new Number(aJQueryElement.css("width").split("px")[0]) * new Number(aJQueryElement.css("height").split("px")[0])
 }
 
 window.onresize = function(event) {

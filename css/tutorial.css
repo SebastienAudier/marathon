@@ -144,6 +144,25 @@
 	height: 50px;
 }
 
+.mr-new-comment {
+	position: fixed; 
+	top: 25%; 
+	right: 1%;
+	cursor: pointer;  
+	padding-left: 14px; 
+	padding-right: 14px; 
+	border-radius: 24px; 
+	color: #fff; 
+	font-weight: bold; 
+	z-index: 1000000;
+    line-height: 1em;
+	background: #ffda44 url("./../img/add.png") no-repeat center center;
+	background-size: 33px;
+	width: 25px;
+	height: 50px;
+}
+
+
 .mr-arrow:hover {
 	background: #0088EE
 }
@@ -157,10 +176,30 @@
 	background-size: 33px;
 }
 
+.mr-new-comment:hover {
+	background: #ffeb9b url("./../img/add.png") no-repeat center center;
+	background-size: 33px;
+}
+
 .mr-arrow.left{
 	left: 25px;
 } 
 
 .mr-arrow.right {
 	right: 25px;
+}
+
+.mr-edit-help {
+	position: fixed;
+	width: 30%;
+	height: 70px;
+	opacity: 0.95;
+	border-radius: 24px;
+	top: 20px;
+	left: 35%;
+	background: #3b3b3b url("./../img/select.png") 20px center no-repeat;
+	background-size: 48px;
+	padding-left: 85px;
+	color: #fff;
+	line-height: 2em;
 }
